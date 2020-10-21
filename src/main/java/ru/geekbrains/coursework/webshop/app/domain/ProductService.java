@@ -6,6 +6,4 @@ import ru.geekbrains.coursework.webshop.app.domain.entities.Product;
 
 @Service
 public class ProductService extends AService<Product, ProductRepository> {
-    public ProductService() {
-    }
 }

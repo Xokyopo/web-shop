@@ -6,6 +6,4 @@ import ru.geekbrains.coursework.webshop.app.domain.entities.Brand;
 
 @Service
 public class BrandService extends AService<Brand, BrandRepository> {
-    public BrandService() {
-    }
 }

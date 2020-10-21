@@ -16,9 +16,6 @@ public abstract class AService<E, R extends ARepository<E>> {
     private R repository;
     private Class<E> entitiesClass;
 
-    public AService() {
-    }
-
     @Autowired
     public void setRepository(R repository) {
         this.repository = repository;

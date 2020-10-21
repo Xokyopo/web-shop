@@ -1,11 +1,11 @@
 package ru.geekbrains.coursework.webshop.app.domain.entities;
 
-import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
 @Entity
 public abstract class AEntity {
@@ -16,9 +16,6 @@ public abstract class AEntity {
     private long id;
     @NotNull
     private String name;
-
-    public AEntity() {
-    }
 
     public long getId() {
         return this.id;

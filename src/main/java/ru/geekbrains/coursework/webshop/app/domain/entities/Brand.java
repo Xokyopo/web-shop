@@ -1,16 +1,13 @@
 package ru.geekbrains.coursework.webshop.app.domain.entities;
 
-import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import java.util.Set;
 
 @Entity(name = "brands")
 public class Brand extends AEntity {
     @OneToMany
     private Set<Product> products;
-
-    public Brand() {
-    }
 
     public Set<Product> getProducts() {
         return this.products;

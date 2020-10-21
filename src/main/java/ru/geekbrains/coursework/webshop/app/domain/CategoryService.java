@@ -6,6 +6,4 @@ import ru.geekbrains.coursework.webshop.app.domain.entities.Category;
 
 @Service
 public class CategoryService extends AService<Category, CategoryRepository> {
-    public CategoryService() {
-    }
 }

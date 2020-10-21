@@ -1,9 +1,9 @@
 package ru.geekbrains.coursework.webshop.app.domain.entities;
 
-import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.PreRemove;
+import java.util.Set;
 
 @Entity(name = "users")
 public class User extends AEntity {
@@ -12,9 +12,6 @@ public class User extends AEntity {
             mappedBy = "users"
     )
     private Set<Role> roles;
-
-    public User() {
-    }
 
     public char[] getPassword() {
         return this.password;
