@@ -3,14 +3,11 @@ package ru.geekbrains.coursework.webshop.app.domain.entities;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.PreRemove;
 import java.util.Set;
 
 @Entity(name = "products")
 public class Product extends AEntity {
-    @ManyToMany(
-            mappedBy = "products"
-    )
+    @ManyToMany
     private Set<Category> categories;
     @ManyToOne
     private Brand brand;
@@ -29,12 +26,5 @@ public class Product extends AEntity {
 
     public void setBrand(Brand brand) {
         this.brand = brand;
-    }
-
-    @PreRemove
-    public void preRemoveAction() {
-        this.categories.forEach((product) -> {
-            product.getProducts().remove(this);
-        });
     }
 }
