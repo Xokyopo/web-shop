@@ -28,7 +28,7 @@ public abstract class AController<E, R extends AService<E, ? extends ARepository
         this.getLogger().ifPresent((myLogger) -> myLogger.info("run method name {public void init(R service, Environment environment)}"));
         this.service = service;
         this.entityName = service.getEntityName().toLowerCase();
-        this.entitiesTablePath = "/" + entityName + "s";
+        this.entitiesTablePath = "/" + entityName + "-list";
         this.editFormPath = "/" + entityName + "-edit-form";
     }
 
@@ -47,9 +47,10 @@ public abstract class AController<E, R extends AService<E, ? extends ARepository
     }
 
     @PostMapping({"/del/{id}"})
-    public String delete(Model model, @PathVariable("id") Long id) {
+    public String delete(@PathVariable("id") Long id) {
         this.getLogger().ifPresent((myLogger) -> myLogger.debug("run method name {public String delete(Model model, @PathVariable('id') Long id)} where id is [" + id + "]"));
         this.service.delete(id);
+        //TODO нужно делать редирект на корень котроллера а не на файл
         return "redirect:" + this.entitiesTablePath;
     }
 
@@ -57,6 +58,7 @@ public abstract class AController<E, R extends AService<E, ? extends ARepository
     public String save(E entity) {
         this.getLogger().ifPresent((myLogger) -> myLogger.debug("run method name {public String save(E entity)} where entity is [" + entity + "]"));
         this.service.save(entity);
+        //TODO нужно делать редирект на корень котроллера а не на файл
         return "redirect:" + this.entitiesTablePath;
     }
 
