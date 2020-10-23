@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="/bootadmin/fragments :: headBlock"></div>
+
+    <title>BootAdmin:Brands</title>
+</head>
+<body class="bg-light">
+
+<div th:replace="/bootadmin/fragments :: header">
+</div>
+
+<div class="d-flex">
+    <div class="sidebar sidebar-dark bg-dark" th:replace="/bootadmin/fragments :: leftmenu"></div>
+
+    <div class="content p-4">
+        <div class="card mb-4">
+            <div class="card-body" th:with="rootDir='/bootadmin/entity/product'">
+                <div class="row justify-content-center" style="margin: 10px">
+                    <a class="btn btn-success" th:href="@{${rootDir} + '/show/0'}" type="button">add</a>
+                </div>
+
+                <table class="table table-striped" id="myTable">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">id</th>
+                        <th scope="col">name</th>
+                        <th scope="col">brand</th>
+                        <th scope="col">categories</th>
+                        <th scope="col">actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="product : ${products}" th:with="entityID=${product.id}">
+                        <th scope="row" th:text="${product.id}">id</th>
+                        <td th:text="${product.name}">brand name</td>
+                        <td th:text="${product.brand.name}">brand name</td>
+                        <td>
+                            <p class="d-inline p-1 bg-primary text-white mb-0"
+                               th:each="category : ${product.categories}"
+                               th:text="${category.name}">product category</p>
+                        </td>
+                        <td class="row">
+                            <!-- поменять потом скоуп на другой так как он делает буквы жирными.-->
+                            <a class="btn btn-warning mr-2" th:href="@{${rootDir} + '/show/{id}'(id = ${entityID})}"
+                               type="button">edit</a>
+                            <a class="btn btn-danger" th:href="@{${rootDir} + '/del/{id}'(id = ${entityID})}"
+                               type="button">del</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="/bootadmin/fragments :: footer">
+</div>
+
+</body>
+</html>
