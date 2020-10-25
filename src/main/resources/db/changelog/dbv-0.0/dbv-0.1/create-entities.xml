@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <property name="id.type" value="bigint"/>
+    <property name="text.type" value="varchar(255)"/>
+
+    <changeSet id="create-entity-brand" author="Xokyopo">
+        <createTable tableName="brands">
+            <column name="id" autoIncrement="true" type="${id.type}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="${text.type}"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create-entity-category" author="Xokyopo">
+        <createTable tableName="categories">
+            <column name="id" autoIncrement="true" type="${id.type}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="${text.type}"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create-entity-role" author="Xokyopo">
+        <createTable tableName="roles">
+            <column name="id" autoIncrement="true" type="${id.type}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="${text.type}"/>
+            <column name="description" type="${text.type}"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create-entity-user" author="Xokyopo">
+        <createTable tableName="users">
+            <column name="id" autoIncrement="true" type="${id.type}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="${text.type}"/>
+            <column name="password" type="${text.type}"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create-entity-product" author="Xokyopo">
+        <createTable tableName="products">
+            <column name="id" autoIncrement="true" type="${id.type}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="${text.type}"/>
+            <column name="brand_id" type="${id.type}">
+                <constraints foreignKeyName="fk_products_brand_to_brand_id" referencedTableName="brands"
+                             referencedColumnNames="id" nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

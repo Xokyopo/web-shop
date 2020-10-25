@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <property name="id.type" value="bigint"/>
+    <property name="text.type" value="varchar(255)"/>
+
+    <changeSet id="create-link-products_categories" author="Xokyopo">
+        <createTable tableName="products_categories">
+            <column name="products_id" type="${id.type}">
+                <constraints primaryKey="true" nullable="false"
+                             foreignKeyName="fk_products-categories_products-id_to_products_id"
+                             referencedTableName="products" referencedColumnNames="id"/>
+            </column>
+            <column name="categories_id" type="${id.type}">
+                <constraints primaryKey="true" nullable="false"
+                             foreignKeyName="fk_products-categories_categories-id_to_products_id"
+                             referencedTableName="categories" referencedColumnNames="id"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create-link-brands_products" author="Xokyopo">
+        <createTable tableName="brands_products">
+            <column name="brands_id" type="${id.type}">
+                <constraints primaryKey="true" nullable="false"
+                             foreignKeyName="fk_brands-products_brands-id_to_brands_id" referencedTableName="brands"
+                             referencedColumnNames="id"/>
+            </column>
+            <column name="products_id" type="${id.type}">
+                <constraints primaryKey="true" nullable="false"
+                             foreignKeyName="fk_brands-products_products-id_to_products_id"
+                             referencedTableName="products" referencedColumnNames="id"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create-link-users_roles" author="Xokyopo">
+        <createTable tableName="users_roles">
+            <column name="users_id" type="${id.type}">
+                <constraints primaryKey="true" nullable="false" foreignKeyName="fk_users-roles_users-id_to_users_id"
+                             referencedTableName="users" referencedColumnNames="id"/>
+            </column>
+            <column name="roles_id" type="${id.type}">
+                <constraints primaryKey="true" nullable="false" foreignKeyName="fk_users-roles_roles-id_to_roles_id"
+                             referencedTableName="roles" referencedColumnNames="id"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
