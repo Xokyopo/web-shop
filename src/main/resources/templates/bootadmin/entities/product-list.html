@@ -35,7 +35,7 @@
                     <tr th:each="product : ${products}" th:with="entityID=${product.id}">
                         <th scope="row" th:text="${product.id}">id</th>
                         <td th:text="${product.name}">brand name</td>
-                        <td th:text="${product.brand.name}">brand name</td>
+                        <td th:text="${product.brand?.name}">brand name</td>
                         <td>
                             <p class="d-inline p-1 bg-primary text-white mb-0"
                                th:each="category : ${product.categories}"
