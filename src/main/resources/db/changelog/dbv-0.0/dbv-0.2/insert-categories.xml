@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+
+    <changeSet id="insert-categories" author="Xokyopo">
+        <insert tableName="categories">
+            <column name="name" value="Бытовая техника"/>
+        </insert>
+        <insert tableName="categories">
+            <column name="name" value="Смартфоны и гаджеты"/>
+        </insert>
+        <insert tableName="categories">
+            <column name="name" value="Планшеты"/>
+        </insert>
+        <insert tableName="categories">
+            <column name="name" value="ТВ"/>
+        </insert>
+        <insert tableName="categories">
+            <column name="name" value="Компьютеры"/>
+        </insert>
+        <insert tableName="categories">
+            <column name="name" value="Комплектующие"/>
+        </insert>
+        <insert tableName="categories">
+            <column name="name" value="Ноутбуки"/>
+        </insert>
+        <insert tableName="categories">
+            <column name="name" value="Офис и сеть"/>
+        </insert>
+        <insert tableName="categories">
+            <column name="name" value="Кресла"/>
+        </insert>
+        <insert tableName="categories">
+            <column name="name" value="Аксессуары"/>
+        </insert>
+        <insert tableName="categories">
+            <column name="name" value="Наушники"/>
+        </insert>
+        <insert tableName="categories">
+            <column name="name" value="Клавиатуры"/>
+        </insert>
+        <rollback>
+            <delete tableName="categories">
+                <where>name='Бытовая техника'</where>
+            </delete>
+            <delete tableName="categories">
+                <where>name='Смартфоны и гаджеты'</where>
+            </delete>
+            <delete tableName="categories">
+                <where>name='Планшеты'</where>
+            </delete>
+            <delete tableName="categories">
+                <where>name='ТВ'</where>
+            </delete>
+            <delete tableName="categories">
+                <where>name='Компьютеры'</where>
+            </delete>
+            <delete tableName="categories">
+                <where>name='Комплектующие'</where>
+            </delete>
+            <delete tableName="categories">
+                <where>name='Ноутбуки'</where>
+            </delete>
+            <delete tableName="categories">
+                <where>name='Офис и сеть'</where>
+            </delete>
+            <delete tableName="categories">
+                <where>name='Кресла'</where>
+            </delete>
+            <delete tableName="categories">
+                <where>name='Аксессуары'</where>
+            </delete>
+            <delete tableName="categories">
+                <where>name='Наушники'</where>
+            </delete>
+            <delete tableName="categories">
+                <where>name='Клавиатуры'</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

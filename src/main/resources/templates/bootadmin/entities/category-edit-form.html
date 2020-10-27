@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="/bootadmin/fragments :: headBlock"></div>
+
+    <title>BootAdmin:Category-editor</title>
+</head>
+<body class="bg-light">
+
+<div th:replace="/bootadmin/fragments :: header">
+</div>
+
+<div class="d-flex">
+    <div class="sidebar sidebar-dark bg-dark" th:replace="/bootadmin/fragments :: leftmenu"></div>
+
+    <div class="content p-4">
+        <h2 class="mb-4">Category-editor</h2>
+        <div class="card mb-4">
+            <div class="card-body" th:with="rootDir='/bootadmin/entity/category'">
+
+                <div class="row justify-content-center">
+                    <a class="btn btn-primary" style="margin-top: 50px" th:href="@{${rootDir}  + '/showAll'}"
+                       type="button">Cancel</a>
+                </div>
+
+                <form action="#" method="post" th:action="@{${rootDir} + '/save'}" th:object="${category}">
+                    <input th:field="*{id}" type="hidden"/>
+
+                    <div class="form-group">
+                        <label for="name">name</label>
+                        <input class="form-control" id="name" placeholder="enter name" th:field="*{name}" type="text"/>
+                    </div>
+
+                    <input th:field="*{products}" type="hidden">
+
+                    <div class="row justify-content-end" style="margin: 0 5px">
+                        <button class="btn btn-success" type="submit">Save</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="/bootadmin/fragments :: footer">
+</div>
+
+</body>
+</html>

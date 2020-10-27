@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+
+    <changeSet id="insert-brands" author="Xokyopo">
+        <insert tableName="brands">
+            <column name="name" value="Acer"/>
+        </insert>
+        <insert tableName="brands">
+            <column name="name" value="Amazon"/>
+        </insert>
+        <insert tableName="brands">
+            <column name="name" value="Apple"/>
+        </insert>
+        <insert tableName="brands">
+            <column name="name" value="Asus"/>
+        </insert>
+        <insert tableName="brands">
+            <column name="name" value="Barnes &amp; Noble"/>
+        </insert>
+        <insert tableName="brands">
+            <column name="name" value="Blackberry"/>
+        </insert>
+        <insert tableName="brands">
+            <column name="name" value="Bosch"/>
+        </insert>
+        <insert tableName="brands">
+            <column name="name" value="Bose"/>
+        </insert>
+        <insert tableName="brands">
+            <column name="name" value="Canon"/>
+        </insert>
+        <insert tableName="brands">
+            <column name="name" value="Canon"/>
+        </insert>
+        <insert tableName="brands">
+            <column name="name" value="Dell"/>
+        </insert>
+        <insert tableName="brands">
+            <column name="name" value="Denon"/>
+        </insert>
+        <insert tableName="brands">
+            <column name="name" value="Garmin"/>
+        </insert>
+        <insert tableName="brands">
+            <column name="name" value="Hewlett Packard"/>
+        </insert>
+        <insert tableName="brands">
+            <column name="name" value="Htc"/>
+        </insert>
+        <insert tableName="brands">
+            <column name="name" value="Lenovo"/>
+        </insert>
+        <insert tableName="brands">
+            <column name="name" value="LG"/>
+        </insert>
+        <insert tableName="brands">
+            <column name="name" value="Microsoft"/>
+        </insert>
+        <insert tableName="brands">
+            <column name="name" value="Motorola"/>
+        </insert>
+        <insert tableName="brands">
+            <column name="name" value="Newegg"/>
+        </insert>
+        <insert tableName="brands">
+            <column name="name" value="Nexus"/>
+        </insert>
+        <insert tableName="brands">
+            <column name="name" value="Nikon"/>
+        </insert>
+        <insert tableName="brands">
+            <column name="name" value="Nokia"/>
+        </insert>
+        <insert tableName="brands">
+            <column name="name" value="Olloclip"/>
+        </insert>
+        <insert tableName="brands">
+            <column name="name" value="Olympus"/>
+        </insert>
+        <insert tableName="brands">
+            <column name="name" value="Panasonic"/>
+        </insert>
+        <insert tableName="brands">
+            <column name="name" value="Philips"/>
+        </insert>
+        <insert tableName="brands">
+            <column name="name" value="Pioneer"/>
+        </insert>
+        <insert tableName="brands">
+            <column name="name" value="Radioshack"/>
+        </insert>
+        <insert tableName="brands">
+            <column name="name" value="Ricoh"/>
+        </insert>
+        <insert tableName="brands">
+            <column name="name" value="Samsung"/>
+        </insert>
+        <insert tableName="brands">
+            <column name="name" value="Sharp"/>
+        </insert>
+        <insert tableName="brands">
+            <column name="name" value="Sony"/>
+        </insert>
+        <insert tableName="brands">
+            <column name="name" value="Tomtom"/>
+        </insert>
+        <insert tableName="brands">
+            <column name="name" value="Toshiba"/>
+        </insert>
+        <insert tableName="brands">
+            <column name="name" value="Xbox"/>
+        </insert>
+        <rollback>
+            <delete tableName="brands">
+                <where>name='Acer'</where>
+            </delete>
+            <delete tableName="brands">
+                <where>name='Amazon'</where>
+            </delete>
+            <delete tableName="brands">
+                <where>name='Apple'</where>
+            </delete>
+            <delete tableName="brands">
+                <where>name='Asus'</where>
+            </delete>
+            <delete tableName="brands">
+                <where>name='Barnes &amp; Noble'</where>
+            </delete>
+            <delete tableName="brands">
+                <where>name='Blackberry'</where>
+            </delete>
+            <delete tableName="brands">
+                <where>name='Bosch'</where>
+            </delete>
+            <delete tableName="brands">
+                <where>name='Bose'</where>
+            </delete>
+            <delete tableName="brands">
+                <where>name='Canon'</where>
+            </delete>
+            <delete tableName="brands">
+                <where>name='Canon'</where>
+            </delete>
+            <delete tableName="brands">
+                <where>name='Dell'</where>
+            </delete>
+            <delete tableName="brands">
+                <where>name='Denon'</where>
+            </delete>
+            <delete tableName="brands">
+                <where>name='Garmin'</where>
+            </delete>
+            <delete tableName="brands">
+                <where>name='Hewlett Packard'</where>
+            </delete>
+            <delete tableName="brands">
+                <where>name='Htc'</where>
+            </delete>
+            <delete tableName="brands">
+                <where>name='Lenovo'</where>
+            </delete>
+            <delete tableName="brands">
+                <where>name='LG'</where>
+            </delete>
+            <delete tableName="brands">
+                <where>name='Microsoft'</where>
+            </delete>
+            <delete tableName="brands">
+                <where>name='Motorola'</where>
+            </delete>
+            <delete tableName="brands">
+                <where>name='Newegg'</where>
+            </delete>
+            <delete tableName="brands">
+                <where>name='Nexus'</where>
+            </delete>
+            <delete tableName="brands">
+                <where>name='Nikon'</where>
+            </delete>
+            <delete tableName="brands">
+                <where>name='Nokia'</where>
+            </delete>
+            <delete tableName="brands">
+                <where>name='Olloclip'</where>
+            </delete>
+            <delete tableName="brands">
+                <where>name='Olympus'</where>
+            </delete>
+            <delete tableName="brands">
+                <where>name='Panasonic'</where>
+            </delete>
+            <delete tableName="brands">
+                <where>name='Philips'</where>
+            </delete>
+            <delete tableName="brands">
+                <where>name='Pioneer'</where>
+            </delete>
+            <delete tableName="brands">
+                <where>name='Radioshack'</where>
+            </delete>
+            <delete tableName="brands">
+                <where>name='Ricoh'</where>
+            </delete>
+            <delete tableName="brands">
+                <where>name='Samsung'</where>
+            </delete>
+            <delete tableName="brands">
+                <where>name='Sharp'</where>
+            </delete>
+            <delete tableName="brands">
+                <where>name='Sony'</where>
+            </delete>
+            <delete tableName="brands">
+                <where>name='Tomtom'</where>
+            </delete>
+            <delete tableName="brands">
+                <where>name='Toshiba'</where>
+            </delete>
+            <delete tableName="brands">
+                <where>name='Xbox'</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

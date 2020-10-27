@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+
+    <changeSet id="insert-users" author="Xokyopo">
+        <insert tableName="users">
+            <column name="name" value="admin"/>
+            <column name="password" value="admin"/>
+        </insert>
+        <insert tableName="users">
+            <column name="name" value="user"/>
+            <column name="password" value="user"/>
+        </insert>
+        <rollback>
+            <delete tableName="users">
+                <where>name='user'</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="insert-users_roles" author="Xokyopo">
+        <insert tableName="users_roles">
+            <column name="users_id" valueComputed="(SELECT id FROM users WHERE name = 'admin')"/>
+            <column name="roles_id" valueComputed="(SELECT id FROM roles WHERE name = 'ROLE_ADMIN')"/>
+        </insert>
+        <insert tableName="users_roles">
+            <column name="users_id" valueComputed="(SELECT id FROM users WHERE name = 'user')"/>
+            <column name="roles_id" valueComputed="(SELECT id FROM roles WHERE name = 'ROLE_USER')"/>
+        </insert>
+        <rollback>
+            <delete tableName="users_roles">
+                <where>:name=:value and :name=:value</where>
+                <whereParams>
+                    <param name="userId" valueComputed="(SELECT id FROM users WHERE name = 'admin')"/>
+                    <param name="roleId" valueComputed="(SELECT id FROM roles WHERE name = 'ROLE_ADMIN')"/>
+                </whereParams>
+            </delete>
+            <delete tableName="users_roles">
+                <where>:name=:value and :name=:value</where>
+                <whereParams>
+                    <param name="userId" valueComputed="(SELECT id FROM users WHERE name = 'user')"/>
+                    <param name="roleId" valueComputed="(SELECT id FROM roles WHERE name = 'ROLE_USER')"/>
+                </whereParams>
+            </delete>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>

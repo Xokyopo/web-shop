@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+
+    <changeSet id="insert-roles" author="Xokyopo">
+        <insert tableName="roles">
+            <column name="name" value="ROLE_ADMIN"/>
+            <column name="description" value="base admin roles"/>
+        </insert>
+        <insert tableName="roles">
+            <column name="name" value="ROLE_USER"/>
+            <column name="description" value="base user roles"/>
+        </insert>
+        <rollback>
+            <delete tableName="roles">
+                <where>name='ROLE_ADMIN'</where>
+            </delete>
+            <delete tableName="roles">
+                <where>name='ROLE_USER'</where>
+            </delete>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>
