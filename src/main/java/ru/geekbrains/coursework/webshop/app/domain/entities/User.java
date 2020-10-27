@@ -6,15 +6,15 @@ import java.util.Set;
 
 @Entity(name = "users")
 public class User extends AEntity {
-    private char[] password;
+    private String password;
     @ManyToMany
     private Set<Role> roles;
 
-    public char[] getPassword() {
+    public String getPassword() {
         return this.password;
     }
 
-    public void setPassword(char[] password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
