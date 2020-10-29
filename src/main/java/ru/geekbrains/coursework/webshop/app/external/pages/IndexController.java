@@ -1,20 +1,12 @@
-package ru.geekbrains.coursework.webshop.app.external;
+package ru.geekbrains.coursework.webshop.app.external.pages;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import ru.geekbrains.coursework.webshop.app.domain.AllServiceAccumulator;
 
 @Controller
 @RequestMapping("/")
 public class IndexController {
-    private AllServiceAccumulator allServiceAccumulator;
-
-    @Autowired
-    public IndexController(AllServiceAccumulator allServiceAccumulator) {
-        this.allServiceAccumulator = allServiceAccumulator;
-    }
 
     @GetMapping
     public String getMainPage() {
@@ -40,7 +32,6 @@ public class IndexController {
     }
 
     @GetMapping("/single-product")
-//single-product
     public String getSingleProduct() {
         return "/single-product";
     }
