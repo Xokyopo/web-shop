@@ -62,6 +62,10 @@ public abstract class AService<E, R extends ARepository<E>> {
         this.repository.deleteById(id);
     }
 
+    public R getRepository() {
+        return repository;
+    }
+
     public String getEntityName() {
         return this.entitiesClass.getSimpleName();
     }
@@ -83,7 +87,7 @@ public abstract class AService<E, R extends ARepository<E>> {
         return (Class<E>) resolvableType.getGeneric(0).toClass();
     }
 
-    private E getEmptyEntity() {
+    protected final E getEmptyEntity() {
         try {
             return this.entitiesClass.newInstance();
         } catch (Exception e) {
