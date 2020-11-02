@@ -5,8 +5,13 @@
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
-    <include file="drop-brands_products.xml" relativeToChangelogFile="true"/>
-    <include file="create-entity-image.xml" relativeToChangelogFile="true"/>
-    <include file="update-entity-brand.xml" relativeToChangelogFile="true"/>
+    <property name="id.type" value="bigint"/>
+    <property name="text.type" value="varchar(255)"/>
+    <property name="data.type" value="blob"/>
 
+    <changeSet id="brand-add-logo_url" author="Xokyopo">
+        <addColumn tableName="brands">
+            <column name="logo_url" type="${text.type}"/>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>
