@@ -7,8 +7,17 @@ import java.util.Set;
 
 @Entity(name = "brands")
 public class Brand extends AEntity {
+    private String logoUrl;
     @OneToMany(mappedBy = "brand")
     private Set<Product> products;
+
+    public String getLogoUrl() {
+        return logoUrl;
+    }
+
+    public void setLogoUrl(String logoUrl) {
+        this.logoUrl = logoUrl;
+    }
 
     public Set<Product> getProducts() {
         return this.products;
