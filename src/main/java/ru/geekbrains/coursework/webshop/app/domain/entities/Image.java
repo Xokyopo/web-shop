@@ -83,7 +83,7 @@ public class Image extends AEntity {
                 "type = '" + type + '\'' +
                 ", path = '" + path + '\'' +
                 ", size = " + size +
-                ", data.length =" + (data == null ? "0" : data.length) +
+                ", data.length = " + (data == null ? "0" : data.length) +
                 "} " + super.toString();
     }
 
