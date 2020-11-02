@@ -39,18 +39,19 @@
 
                         <div class="input-group input-group-sm mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" for="type">Media Type:</span>
-                            </div>
-                            <label class="form-control" id="type" th:text="${image.type}"></label>
-                        </div>
-
-                        <div class="input-group input-group-sm mb-3">
-                            <div class="input-group-prepend">
                                 <span class="input-group-text" for="size">Size:</span>
                             </div>
                             <label class="form-control" id="size"
                                    th:text="${programUtils.convertToHumanFileLength(image.size)}"></label>
                         </div>
+
+                        <div class="input-group input-group-sm mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" for="type">Media Type:</span>
+                            </div>
+                            <label class="form-control" id="type" th:text="${image.type}"></label>
+                        </div>
+
                         </p>
                         <!--                        <a href="#" class="btn btn-primary">load  new</a>-->
                     </div>
@@ -59,13 +60,19 @@
                 <!--      image new loader      -->
                 <form action="#" enctype="multipart/form-data" method="post" th:action="@{${rootDir} + '/save'}">
 
+                    <input th:field="${image.id}" type="hidden">
+                    <input th:field="${image.name}" type="hidden">
+                    <input th:field="${image.path}" type="hidden">
+                    <input th:field="${image.type}" type="hidden">
+                    <input th:field="${image.size}" type="hidden">
+                    <input th:field="${image.data}" type="hidden">
+
                     <input name="uploadList" th:multiple="${image.id == 0}" type="file">
 
                     <div class="row justify-content-end" style="margin: 0 5px">
                         <button class="btn btn-success" type="submit">Save</button>
                     </div>
                 </form>
-
             </div>
         </div>
     </div>
