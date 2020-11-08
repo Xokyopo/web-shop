@@ -4,7 +4,7 @@
 <head>
     <div th:replace="/bootadmin/fragments :: headBlock"></div>
 
-    <title>BootAdmin:Users</title>
+    <title>BootAdmin:Brands</title>
 </head>
 <body class="bg-light">
 
@@ -16,7 +16,7 @@
 
     <div class="content p-4">
         <div class="card mb-4">
-            <div class="card-body" th:with="rootDir='/bootadmin/entities/user'">
+            <div class="card-body" th:with="rootDir='/bootadmin/entities/image'">
                 <div class="row justify-content-center" style="margin: 10px">
                     <a class="btn btn-success" th:href="@{${rootDir} + '/show/0'}" type="button">add</a>
                 </div>
@@ -26,26 +26,26 @@
                     <tr>
                         <th scope="col">id</th>
                         <th scope="col">name</th>
-                        <th scope="col">password</th>
-                        <th scope="col">roles</th>
+                        <th scope="col">media type</th>
+                        <th scope="col">size</th>
                         <th scope="col">actions</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="user : ${users}" th:with="entityID=${user.id}">
-                        <th scope="row" th:text="${user.id}">id</th>
-                        <td th:text="${user.name}">user name</td>
-                        <td th:text="${user.password}">user password</td>
-                        <td>
-                            <p class="d-inline p-1 bg-primary text-white mb-0" th:each="role : ${user.roles}"
-                               th:text="${role.name}">user roles</p>
-                        </td>
+                    <tr th:each="image : ${images}" th:with="entityID=${image.id}">
+                        <th scope="row" th:text="${image.id}">id</th>
+                        <td th:text="${image.name}">image name</td>
+                        <td th:text="${image.type}">image type</td>
+                        <td th:text="${programUtils.convertToHumanFileLength(image.size)}">image size</td>
                         <td class="row">
                             <!-- поменять потом скоуп на другой так как он делает буквы жирными.-->
-                            <a class="btn btn-warning mr-2" th:href="@{${rootDir} + '/show/{id}'(id = ${entityID})}"
+                            <a class="btn btn-warning  mr-2" th:href="@{${rootDir} + '/show/{id}'(id = ${entityID})}"
                                type="button">edit</a>
-                            <a class="btn btn-danger" th:href="@{${rootDir} + '/del/{id}'(id = ${entityID})}"
-                               type="button">del</a>
+                            <form action="#" method="post" th:action="@{${rootDir} + '/del/{id}'(id = ${entityID})}">
+                                <button class="btn btn-danger" type="submit">del</button>
+                                <!--                                <a class="btn btn-danger" th:href="@{${rootDir} + '/del/{id}'(id = ${entityID})}"-->
+                                <!--                                   type="button">del</a>-->
+                            </form>
                         </td>
                     </tr>
                     </tbody>

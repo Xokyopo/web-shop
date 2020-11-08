@@ -17,7 +17,7 @@
     <div class="content p-4">
         <h2 class="mb-4">Brand-editor</h2>
         <div class="card mb-4">
-            <div class="card-body" th:with="rootDir='/bootadmin/entity/brand'">
+            <div class="card-body" th:with="rootDir='/bootadmin/entities/brand'">
 
                 <div class="row justify-content-center">
                     <a class="btn btn-primary" style="margin-top: 50px" th:href="@{${rootDir}  + '/showAll'}"
@@ -30,6 +30,12 @@
                     <div class="form-group">
                         <label for="name">name</label>
                         <input class="form-control" id="name" placeholder="enter name" th:field="*{name}" type="text"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="logo">logo</label>
+                        <input class="form-control" id="logo" placeholder="enter logo url" th:field="*{logoUrl}"
+                               type="text"/>
                     </div>
 
                     <input th:field="*{products}" type="hidden">

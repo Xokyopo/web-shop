@@ -17,7 +17,7 @@
     <div class="content p-4">
         <h2 class="mb-4">Product-editor</h2>
         <div class="card mb-4">
-            <div class="card-body" th:with="rootDir='/bootadmin/entity/product'">
+            <div class="card-body" th:with="rootDir='/bootadmin/entities/product'">
 
                 <div class="row justify-content-center">
                     <a class="btn btn-primary" style="margin-top: 50px" th:href="@{${rootDir}  + '/showAll'}"
@@ -44,7 +44,8 @@
 
                     <div class="form-group">
                         <label>Categories:</label>
-                        <div class="form-check form-check-inline" th:each="category : ${allCategories}">
+                        <div class="form-check form-check-inline bg-light rounded m-2 px-2"
+                             th:each="category : ${allCategories}">
                             <input th:field="*{categories}" th:text="${category.name}" th:value="${category.id}"
                                    type="checkbox"/>
                         </div>

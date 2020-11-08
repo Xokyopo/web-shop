@@ -16,7 +16,7 @@
 
     <div class="content p-4">
         <div class="card mb-4">
-            <div class="card-body" th:with="rootDir='/bootadmin/entity/brand'">
+            <div class="card-body" th:with="rootDir='/bootadmin/entities/brand'">
                 <div class="row justify-content-center" style="margin: 10px">
                     <a class="btn btn-success" th:href="@{${rootDir} + '/show/0'}" type="button">add</a>
                 </div>
@@ -25,6 +25,7 @@
                     <thead class="thead-dark">
                     <tr>
                         <th scope="col">id</th>
+                        <th scope="col">logo</th>
                         <th scope="col">name</th>
                         <th scope="col">products count</th>
                         <th scope="col">actions</th>
@@ -33,6 +34,11 @@
                     <tbody>
                     <tr th:each="brand : ${brands}" th:with="entityID=${brand.id}">
                         <th scope="row" th:text="${brand.id}">id</th>
+                        <th scope="row">
+                            <img class="img-thumbnail" style="max-height: 64px" th:if="${brand.logoUrl}"
+                                 th:src="${brand.logoUrl}"/>
+                            <span th:if="!${brand.logoUrl}">not logo</span>
+                        </th>
                         <td th:text="${brand.name}">brand name</td>
                         <td th:text="${brand.products.size()}">brands product</td>
                         <td class="row">
