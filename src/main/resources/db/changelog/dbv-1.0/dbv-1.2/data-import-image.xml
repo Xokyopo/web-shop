@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <property name="id.type" value="bigint"/>
+    <property name="text.type" value="varchar(255)"/>
+    <property name="data.type" value="blob"/>
+
+    <!--    <changeSet id="data-import-image" author="Xokyopo">-->
+    <!--        <sqlFile dbms="mysql" path="data-logo-table.sql" relativeToChangelogFile="true" encoding="UTF-8"/>-->
+    <!--    </changeSet>-->
+
+</databaseChangeLog>

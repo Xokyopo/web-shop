@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <property name="id.type" value="bigint"/>
+    <property name="text.type" value="varchar(255)"/>
+    <property name="data.type" value="blob"/>
+
+    <changeSet id="create-link-products-images_urls" author="Xokyopo">
+        <createTable tableName="products_images_urls">
+            <column name="products_id" type="${id.type}">
+                <constraints nullable="false" foreignKeyName="products-images-urls_products-id_to_products_id"
+                             referencedTableName="products" referencedColumnNames="id"/>
+            </column>
+            <column name="images_urls" type="${text.type}"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
