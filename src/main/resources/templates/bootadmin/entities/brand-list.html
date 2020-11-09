@@ -45,8 +45,9 @@
                             <!-- поменять потом скоуп на другой так как он делает буквы жирными.-->
                             <a class="btn btn-warning  mr-2" th:href="@{${rootDir} + '/show/{id}'(id = ${entityID})}"
                                type="button">edit</a>
-                            <a class="btn btn-danger" th:href="@{${rootDir} + '/del/{id}'(id = ${entityID})}"
-                               type="button">del</a>
+                            <form action="#" method="post" th:action="@{${rootDir} + '/del/{id}'(id = ${entityID})}">
+                                <button class="btn btn-danger" type="submit">del</button>
+                            </form>
                         </td>
                     </tr>
                     </tbody>
