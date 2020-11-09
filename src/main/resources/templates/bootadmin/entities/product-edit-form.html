@@ -34,12 +34,18 @@
 
                     <div class="form-group">
                         <label for="brand">brand</label>
-                        <select class="form-control" id="brand" name="productid" th:field="*{brand}"
+                        <select class="form-control" id="brand" th:field="*{brand}"
                                 th:remove="all-but-first">
                             <option th:each="brand : ${allBrands}" th:text="${brand.name}" th:value="${brand.id}">
                                 brand name
                             </option>
                         </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="price">price</label>
+                        <input class="form-control" id="price" placeholder="enter name" th:field="*{price}" th:step="1"
+                               th:type="number"/>
                     </div>
 
                     <div class="form-group">
@@ -49,6 +55,13 @@
                             <input th:field="*{categories}" th:text="${category.name}" th:value="${category.id}"
                                    type="checkbox"/>
                         </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Images URLs:</label>
+                        <!--                        <input type="text"  class="form-control" th:list="*{imagesUrls}" th:field="*{imagesUrls}"/>-->
+                        <!--                        <textarea  class="form-control" th:field="*{imagesUrls}" rows="10" cols="10"></textarea>-->
+                        <textarea class="form-control" cols="10" rows="10" th:field="*{imagesUrls}"></textarea>
                     </div>
 
                     <div class="row justify-content-end" style="margin: 0 5px">
