@@ -1,290 +1,200 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org">
-<head th:insert="/fragments :: head(title='eElectronics - HTML eCommerce Template')">
+<head th:insert="/templates/fragments :: head(title='eElectronics - HTML eCommerce Template')">
 </head>
 <body>
+<div th:replace="/templates/fragments :: header(current='Single product')"></div>
 
-<div th:replace="/fragments :: header"></div>
+<div th:replace="/templates/fragments :: titleArea(text='Product info')"></div>
 
-<div th:replace="/fragments :: titleArea(text='Product info')"></div>
+<div class="row">
+    <div class="col">
+        <!-- for you content start -->
 
-<div class="single-product-area">
-    <div class="zigzag-bottom"></div>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="single-sidebar">
-                    <h2 class="sidebar-title">Search Products</h2>
-                    <form action="">
-                        <input placeholder="Search products..." type="text">
-                        <input type="submit" value="Search">
-                    </form>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div>
+                        <h4 class="text-success">Related Products</h4>
+                        <ul class="list-group mb-5">
+                            <li class="list-group-item border-0 p-0 mb-4 d-flex"
+                                th:each="relatedProduct : ${relatedProducts}">
+                                <img alt="" class="img-4r" src="img/product-thumb-1.jpg"
+                                     th:src="${relatedProduct.imagesUrls?.stream().findAny().get()}">
+                                <div class="col">
+                                    <h5><a class="text-dark" href="single-product.html"
+                                           th:href="@{/product/{id}(id=${relatedProduct.id})}"
+                                           th:text="${relatedProduct.name}">Sony Smart TV - 2015</a></h5>
+                                    <div class="h6">
+                                        <ins class="text-success" th:text="${relatedProduct.price}">$700.00</ins>
+                                        <del th:text="${relatedProduct.price * 1.13}">$800.00</del>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 class="text-success">Recent Posts</h4>
+                        <ul class="list-group list-group-flush h6">
+                            <li class="list-group-item">
+                                <a class="text-success" href="#">Sony Smart TV - 2015</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a class="text-success" href="#">Sony Smart TV - 2015</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a class="text-success" href="#">Sony Smart TV - 2015</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a class="text-success" href="#">Sony Smart TV - 2015</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a class="text-success" href="#">Sony Smart TV - 2015</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
 
-                <div class="single-sidebar">
-                    <h2 class="sidebar-title">Products</h2>
-                    <div class="thubmnail-recent">
-                        <img alt="" class="recent-thumb" src="site/img/product-thumb-1.jpg">
-                        <h2><a href="">Sony Smart TV - 2015</a></h2>
-                        <div class="product-sidebar-price">
-                            <ins>$700.00</ins>
-                            <del>$800.00</del>
-                        </div>
-                    </div>
-                    <div class="thubmnail-recent">
-                        <img alt="" class="recent-thumb" src="site/img/product-thumb-1.jpg">
-                        <h2><a href="">Sony Smart TV - 2015</a></h2>
-                        <div class="product-sidebar-price">
-                            <ins>$700.00</ins>
-                            <del>$800.00</del>
-                        </div>
-                    </div>
-                    <div class="thubmnail-recent">
-                        <img alt="" class="recent-thumb" src="site/img/product-thumb-1.jpg">
-                        <h2><a href="">Sony Smart TV - 2015</a></h2>
-                        <div class="product-sidebar-price">
-                            <ins>$700.00</ins>
-                            <del>$800.00</del>
-                        </div>
-                    </div>
-                    <div class="thubmnail-recent">
-                        <img alt="" class="recent-thumb" src="site/img/product-thumb-1.jpg">
-                        <h2><a href="">Sony Smart TV - 2015</a></h2>
-                        <div class="product-sidebar-price">
-                            <ins>$700.00</ins>
-                            <del>$800.00</del>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="single-sidebar">
-                    <h2 class="sidebar-title">Recent Posts</h2>
-                    <ul>
-                        <li><a href="">Sony Smart TV - 2015</a></li>
-                        <li><a href="">Sony Smart TV - 2015</a></li>
-                        <li><a href="">Sony Smart TV - 2015</a></li>
-                        <li><a href="">Sony Smart TV - 2015</a></li>
-                        <li><a href="">Sony Smart TV - 2015</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="col-md-8">
-                <div class="product-content-right">
-                    <div class="product-breadcroumb">
-                        <a href="">Home</a>
-                        <a href="">Category Name</a>
-                        <a href="">Sony Smart TV - 2015</a>
-                    </div>
+                <div class="col-md-8" th:object="${product}">
+                    <!-- product info start -->
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb bg-white">
+                            <li aria-current="page" class="breadcrumb-item active">
+                                Home
+                            </li>
+                            <li aria-current="page" class="breadcrumb-item active" th:text="*{brand}">
+                                Brand Name
+                            </li>
+                            <li aria-current="page" class="breadcrumb-item active" th:text="*{name}">
+                                Sony Smart TV - 2015
+                            </li>
+                        </ol>
+                    </nav>
 
                     <div class="row">
                         <div class="col-sm-6">
-                            <div class="product-images">
-                                <div class="product-main-img">
-                                    <img alt="" src="site/img/product-2.jpg">
-                                </div>
 
-                                <div class="product-gallery">
-                                    <img alt="" src="site/img/product-thumb-1.jpg">
-                                    <img alt="" src="site/img/product-thumb-2.jpg">
-                                    <img alt="" src="site/img/product-thumb-3.jpg">
-                                    <img alt="" src="site/img/product-thumb-4.jpg">
+                            <div class="carousel slide" data-ride="carousel" id="carouselExampleIndicators"
+                                 th:if="*{imagesUrls}">
+                                <ol class="carousel-indicators">
+                                    <li data-slide-to="0" data-target="#carouselExampleIndicators"
+                                        th:attr="data-slide-to=${num}" th:classappend="${num == 0} ? 'active'"
+                                        th:each="num : ${#numbers.sequence(0, product.imagesUrls.size() -1)}"></li>
+                                </ol>
+                                <div class="carousel-inner">
+                                    <div class="carousel-item" th:each="image : *{imagesUrls}">
+                                        <img alt="..." class="d-block w-100"
+                                             src="http://www.stilnos.com/wp-content/uploads/2019/06/hol2.jpg"
+                                             th:src="${image}">
+                                    </div>
                                 </div>
+                                <a class="carousel-control-prev" data-slide="prev" href="#carouselExampleIndicators"
+                                   role="button">
+                                    <span aria-hidden="true" class="carousel-control-prev-icon"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="carousel-control-next" data-slide="next" href="#carouselExampleIndicators"
+                                   role="button">
+                                    <span aria-hidden="true" class="carousel-control-next-icon"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
                             </div>
                         </div>
 
                         <div class="col-sm-6">
                             <div class="product-inner">
-                                <h2 class="product-name">Sony Smart TV - 2015</h2>
+                                <h2 class="text-success" th:text="*{name}">Sony Smart TV - 2015</h2>
                                 <div class="product-inner-price">
-                                    <ins>$700.00</ins>
-                                    <del>$800.00</del>
+                                    <ins class="text-success font-weight-bolder" th:text="*{price}">$700.00</ins>
+                                    <del th:text="*{price * 1.13}">$800.00</del>
                                 </div>
 
-                                <form action="" class="cart">
-                                    <div class="quantity">
-                                        <input class="input-text qty text" min="1" name="quantity" size="4" step="1"
-                                               title="Qty" type="number" value="1">
-                                    </div>
-                                    <button class="add_to_cart_button" type="submit">Add to cart</button>
+                                <form action="#" class="form-row my-4" method="post" th:action="@{/product/addToCart}">
+                                    <input name="id" th:value="${product.id}" type="hidden"/>
+                                    <input class="input-text border border-success text-right" min="1" name="count"
+                                           size="4" step="1" style="width:4rem;" title="Qty" type="number" value="1">
+                                    <button class="btn btn-success ml-1" type="submit">Add to cart</button>
                                 </form>
 
                                 <div class="product-inner-category">
-                                    <p>Category: <a href="">Summer</a>. Tags: <a href="">awesome</a>, <a
-                                            href="">best</a>, <a href="">sale</a>, <a href="">shoes</a>. </p>
+                                    <p class="h6">Category: <a class="text-success" href=""
+                                                               th:each="category, state : *{categories}"
+                                                               th:text="${category.name + (state.last ? '' : ',')}">Summer</a>
+                                    </p>
                                 </div>
 
-                                <div role="tabpanel">
-                                    <ul class="product-tab" role="tablist">
-                                        <li class="active" role="presentation"><a aria-controls="home" data-toggle="tab"
-                                                                                  href="#home"
-                                                                                  role="tab">Description</a></li>
-                                        <li role="presentation"><a aria-controls="profile" data-toggle="tab"
-                                                                   href="#profile" role="tab">Reviews</a></li>
-                                    </ul>
-                                    <div class="tab-content">
-                                        <div class="tab-pane fade in active" id="home" role="tabpanel">
-                                            <h2>Product Description</h2>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam tristique,
-                                                diam in consequat iaculis, est purus iaculis mauris, imperdiet facilisis
-                                                ante ligula at nulla. Quisque volutpat nulla risus, id maximus ex
-                                                aliquet ut. Suspendisse potenti. Nulla varius lectus id turpis dignissim
-                                                porta. Quisque magna arcu, blandit quis felis vehicula, feugiat gravida
-                                                diam. Nullam nec turpis ligula. Aliquam quis blandit elit, ac sodales
-                                                nisl. Aliquam eget dolor eget elit malesuada aliquet. In varius lorem
-                                                lorem, semper bibendum lectus lobortis ac.</p>
+                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <a aria-controls="home" aria-selected="true" class="nav-link active"
+                                           data-toggle="tab" href="#home" id="home-tab" role="tab">
+                                            Product Description
+                                        </a>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <a aria-controls="profile" aria-selected="false" class="nav-link"
+                                           data-toggle="tab" href="#profile" id="profile-tab" role="tab">
+                                            Reviews
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content" id="myTabContent">
+                                    <div aria-labelledby="home-tab" class="tab-pane fade show active" id="home"
+                                         role="tabpanel">
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam tristique, diam
+                                            in consequat iaculis, est purus iaculis mauris, imperdiet facilisis ante
+                                            ligula at nulla. Quisque volutpat nulla risus, id maximus
+                                            ex aliquet ut. Suspendisse potenti. Nulla varius lectus id turpis dignissim
+                                            porta. Quisque magna arcu, blandit quis felis vehicula, feugiat gravida
+                                            diam. Nullam nec turpis ligula. Aliquam quis blandit elit,
+                                            ac sodales nisl. Aliquam eget dolor eget elit malesuada aliquet. In varius
+                                            lorem lorem, semper bibendum lectus lobortis ac.</p>
 
-                                            <p>Mauris placerat vitae lorem gravida viverra. Mauris in fringilla ex.
-                                                Nulla facilisi. Etiam scelerisque tincidunt quam facilisis lobortis. In
-                                                malesuada pulvinar neque a consectetur. Nunc aliquam gravida purus, non
-                                                malesuada sem accumsan in. Morbi vel sodales libero.</p>
-                                        </div>
-                                        <div class="tab-pane fade" id="profile" role="tabpanel">
-                                            <h2>Reviews</h2>
-                                            <div class="submit-review">
-                                                <p><label for="name">Name</label> <input id="name" name="name"
-                                                                                         type="text"></p>
-                                                <p><label for="email">Email</label> <input id="email" name="email"
-                                                                                           type="email"></p>
-                                                <div class="rating-chooser">
-                                                    <p>Your rating</p>
+                                        <p>Mauris placerat vitae lorem gravida viverra. Mauris in fringilla ex. Nulla
+                                            facilisi. Etiam scelerisque tincidunt quam facilisis lobortis. In malesuada
+                                            pulvinar neque a consectetur. Nunc aliquam gravida purus,
+                                            non malesuada sem accumsan in. Morbi vel sodales libero.</p>
+                                    </div>
+                                    <div aria-labelledby="profile-tab" class="tab-pane fade" id="profile"
+                                         role="tabpanel">
+                                        <form>
+                                            <p><label for="name">Name</label><input id="name" name="name" type="text">
+                                            </p>
+                                            <p><label for="email">Email</label><input id="email" name="email"
+                                                                                      type="email"></p>
+                                            <div class="rating-chooser">
+                                                <p>Your rating</p>
 
-                                                    <div class="rating-wrap-post">
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                    </div>
+                                                <div class="rating-wrap-post">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
                                                 </div>
-                                                <p>
-                                                    <label for="review">Your review</label>
-                                                    <textarea cols="30" id="review" name="review" rows="10"></textarea>
-                                                </p>
-                                                <p><input type="submit" value="Submit"></p>
                                             </div>
-                                        </div>
+                                            <p><label for="review">Your review</label> <textarea cols="30" id="review"
+                                                                                                 name="review"
+                                                                                                 rows="10"></textarea>
+                                            </p>
+                                            <p><input type="submit" value="Submit"></p>
+                                        </form>
                                     </div>
                                 </div>
 
                             </div>
                         </div>
                     </div>
-
-
-                    <div class="related-products-wrapper">
-                        <h2 class="related-products-title">Related Products</h2>
-                        <div class="related-products-carousel">
-                            <div class="single-product">
-                                <div class="product-f-image">
-                                    <img alt="" src="site/img/product-1.jpg">
-                                    <div class="product-hover">
-                                        <a class="add-to-cart-link" href=""><i class="fa fa-shopping-cart"></i> Add to
-                                            cart</a>
-                                        <a class="view-details-link" href=""><i class="fa fa-link"></i> See details</a>
-                                    </div>
-                                </div>
-
-                                <h2><a href="">Sony Smart TV - 2015</a></h2>
-
-                                <div class="product-carousel-price">
-                                    <ins>$700.00</ins>
-                                    <del>$800.00</del>
-                                </div>
-                            </div>
-                            <div class="single-product">
-                                <div class="product-f-image">
-                                    <img alt="" src="site/img/product-2.jpg">
-                                    <div class="product-hover">
-                                        <a class="add-to-cart-link" href=""><i class="fa fa-shopping-cart"></i> Add to
-                                            cart</a>
-                                        <a class="view-details-link" href=""><i class="fa fa-link"></i> See details</a>
-                                    </div>
-                                </div>
-
-                                <h2><a href="">Apple new mac book 2015 March :P</a></h2>
-                                <div class="product-carousel-price">
-                                    <ins>$899.00</ins>
-                                    <del>$999.00</del>
-                                </div>
-                            </div>
-                            <div class="single-product">
-                                <div class="product-f-image">
-                                    <img alt="" src="site/img/product-3.jpg">
-                                    <div class="product-hover">
-                                        <a class="add-to-cart-link" href=""><i class="fa fa-shopping-cart"></i> Add to
-                                            cart</a>
-                                        <a class="view-details-link" href=""><i class="fa fa-link"></i> See details</a>
-                                    </div>
-                                </div>
-
-                                <h2><a href="">Apple new i phone 6</a></h2>
-
-                                <div class="product-carousel-price">
-                                    <ins>$400.00</ins>
-                                    <del>$425.00</del>
-                                </div>
-                            </div>
-                            <div class="single-product">
-                                <div class="product-f-image">
-                                    <img alt="" src="site/img/product-4.jpg">
-                                    <div class="product-hover">
-                                        <a class="add-to-cart-link" href=""><i class="fa fa-shopping-cart"></i> Add to
-                                            cart</a>
-                                        <a class="view-details-link" href=""><i class="fa fa-link"></i> See details</a>
-                                    </div>
-                                </div>
-
-                                <h2><a href="">Sony playstation microsoft</a></h2>
-
-                                <div class="product-carousel-price">
-                                    <ins>$200.00</ins>
-                                    <del>$225.00</del>
-                                </div>
-                            </div>
-                            <div class="single-product">
-                                <div class="product-f-image">
-                                    <img alt="" src="site/img/product-5.jpg">
-                                    <div class="product-hover">
-                                        <a class="add-to-cart-link" href=""><i class="fa fa-shopping-cart"></i> Add to
-                                            cart</a>
-                                        <a class="view-details-link" href=""><i class="fa fa-link"></i> See details</a>
-                                    </div>
-                                </div>
-
-                                <h2><a href="">Sony Smart Air Condtion</a></h2>
-
-                                <div class="product-carousel-price">
-                                    <ins>$1200.00</ins>
-                                    <del>$1355.00</del>
-                                </div>
-                            </div>
-                            <div class="single-product">
-                                <div class="product-f-image">
-                                    <img alt="" src="site/img/product-6.jpg">
-                                    <div class="product-hover">
-                                        <a class="add-to-cart-link" href=""><i class="fa fa-shopping-cart"></i> Add to
-                                            cart</a>
-                                        <a class="view-details-link" href=""><i class="fa fa-link"></i> See details</a>
-                                    </div>
-                                </div>
-
-                                <h2><a href="">Samsung gallaxy note 4</a></h2>
-
-                                <div class="product-carousel-price">
-                                    <ins>$400.00</ins>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <!-- product info end -->
                 </div>
             </div>
         </div>
+
+        <!-- for you content end -->
     </div>
 </div>
 
-<div th:replace="/fragments :: footer"></div>
-
+<div th:replace="/templates/fragments :: footer"></div>
 </body>
 </html>

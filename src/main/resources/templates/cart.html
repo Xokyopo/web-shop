@@ -1,247 +1,145 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org">
-<head th:insert="/fragments :: head(title='eElectronics - HTML eCommerce Template')">
-
+<head th:insert="/templates/fragments :: head(title='eElectronics - HTML eCommerce Template')">
 </head>
 <body>
+<div th:replace="/templates/fragments :: header(current='Cart')"></div>
 
-<div th:replace="/fragments :: header"></div>
+<div th:replace="/templates/fragments :: titleArea(text='Cart')"></div>
 
-<div th:replace="/fragments :: titleArea(text='Shopping cart')"></div>
+<div class="row">
+    <div class="col">
+        <!-- for you content start -->
 
-<div class="single-product-area">
-    <div class="zigzag-bottom"></div>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="single-sidebar">
-                    <h2 class="sidebar-title">Search Products</h2>
-                    <form action="#">
-                        <input placeholder="Search products..." type="text">
-                        <input type="submit" value="Search">
-                    </form>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div>
+                        <h4 class="text-success">Related Products</h4>
+                        <ul class="list-group mb-5">
+                            <li class="list-group-item border-0 p-0 mb-4 d-flex"
+                                th:each="relatedProduct : ${relatedProducts}">
+                                <img alt="" class="img-4r" src="img/product-thumb-1.jpg"
+                                     th:src="${relatedProduct.imagesUrls?.stream().findAny().get()}">
+                                <div class="col">
+                                    <h5><a class="text-dark" href="single-product.html"
+                                           th:href="@{/product/{id}(id=${relatedProduct.id})}"
+                                           th:text="${relatedProduct.name}">Sony Smart TV - 2015</a></h5>
+                                    <div class="h6">
+                                        <ins class="text-success" th:text="${relatedProduct.price}">$700.00</ins>
+                                        <del th:text="${relatedProduct.price * 1.13}">$800.00</del>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 class="text-success">Recent Posts</h4>
+                        <ul class="list-group list-group-flush h6">
+                            <li class="list-group-item">
+                                <a class="text-success" href="#">Sony Smart TV - 2015</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a class="text-success" href="#">Sony Smart TV - 2015</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a class="text-success" href="#">Sony Smart TV - 2015</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a class="text-success" href="#">Sony Smart TV - 2015</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a class="text-success" href="#">Sony Smart TV - 2015</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
 
-                <div class="single-sidebar">
-                    <h2 class="sidebar-title">Products</h2>
-                    <div class="thubmnail-recent">
-                        <img alt="" class="recent-thumb" src="site/img/product-thumb-1.jpg">
-                        <h2><a href="single-product.html">Sony Smart TV - 2015</a></h2>
-                        <div class="product-sidebar-price">
-                            <ins>$700.00</ins>
-                            <del>$800.00</del>
-                        </div>
-                    </div>
-                    <div class="thubmnail-recent">
-                        <img alt="" class="recent-thumb" src="site/img/product-thumb-1.jpg">
-                        <h2><a href="single-product.html">Sony Smart TV - 2015</a></h2>
-                        <div class="product-sidebar-price">
-                            <ins>$700.00</ins>
-                            <del>$800.00</del>
-                        </div>
-                    </div>
-                    <div class="thubmnail-recent">
-                        <img alt="" class="recent-thumb" src="site/img/product-thumb-1.jpg">
-                        <h2><a href="single-product.html">Sony Smart TV - 2015</a></h2>
-                        <div class="product-sidebar-price">
-                            <ins>$700.00</ins>
-                            <del>$800.00</del>
-                        </div>
-                    </div>
-                    <div class="thubmnail-recent">
-                        <img alt="" class="recent-thumb" src="site/img/product-thumb-1.jpg">
-                        <h2><a href="single-product.html">Sony Smart TV - 2015</a></h2>
-                        <div class="product-sidebar-price">
-                            <ins>$700.00</ins>
-                            <del>$800.00</del>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="single-sidebar">
-                    <h2 class="sidebar-title">Recent Posts</h2>
-                    <ul>
-                        <li><a href="#">Sony Smart TV - 2015</a></li>
-                        <li><a href="#">Sony Smart TV - 2015</a></li>
-                        <li><a href="#">Sony Smart TV - 2015</a></li>
-                        <li><a href="#">Sony Smart TV - 2015</a></li>
-                        <li><a href="#">Sony Smart TV - 2015</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="col-md-8">
-                <div class="product-content-right">
-                    <div class="woocommerce">
-                        <form action="#" method="post">
-                            <table cellspacing="0" class="shop_table cart">
-                                <thead>
-                                <tr>
-                                    <th class="product-remove">&nbsp;</th>
-                                    <th class="product-thumbnail">&nbsp;</th>
-                                    <th class="product-name">Product</th>
-                                    <th class="product-price">Price</th>
-                                    <th class="product-quantity">Quantity</th>
-                                    <th class="product-subtotal">Total</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr class="cart_item">
-                                    <td class="product-remove">
-                                        <a class="remove" href="#" title="Remove this item">×</a>
-                                    </td>
-
-                                    <td class="product-thumbnail">
-                                        <a href="single-product.html"><img alt="poster_1_up" class="shop_thumbnail"
-                                                                           height="145"
-                                                                           src="site/img/product-thumb-2.jpg"
-                                                                           width="145"></a>
-                                    </td>
-
-                                    <td class="product-name">
-                                        <a href="single-product.html">Ship Your Idea</a>
-                                    </td>
-
-                                    <td class="product-price">
-                                        <span class="amount">£15.00</span>
-                                    </td>
-
-                                    <td class="product-quantity">
-                                        <div class="quantity buttons_added">
-                                            <input class="minus" type="button" value="-">
-                                            <input class="input-text qty text" min="0" size="4" step="1" title="Qty"
-                                                   type="number" value="1">
-                                            <input class="plus" type="button" value="+">
-                                        </div>
-                                    </td>
-
-                                    <td class="product-subtotal">
-                                        <span class="amount">£15.00</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="actions" colspan="6">
-                                        <div class="coupon">
-                                            <label for="coupon_code">Coupon:</label>
-                                            <input class="input-text" id="coupon_code" name="coupon_code"
-                                                   placeholder="Coupon code" type="text" value="">
-                                            <input class="button" name="apply_coupon" type="submit"
-                                                   value="Apply Coupon">
-                                        </div>
-                                        <input class="button" name="update_cart" type="submit" value="Update Cart">
-                                        <input class="checkout-button button alt wc-forward" name="proceed"
-                                               type="submit" value="Proceed to Checkout">
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </form>
-
-                        <div class="cart-collaterals">
-
-
-                            <div class="cross-sells">
-                                <h2>You may be interested in...</h2>
-                                <ul class="products">
-                                    <li class="product">
-                                        <a href="single-product.html">
-                                            <img alt="T_4_front" class="attachment-shop_catalog wp-post-image"
-                                                 height="325" src="site/img/product-2.jpg" width="325">
-                                            <h3>Ship Your Idea</h3>
-                                            <span class="price"><span class="amount">£20.00</span></span>
-                                        </a>
-
-                                        <a class="add_to_cart_button" data-product_id="22" data-product_sku=""
-                                           data-quantity="1" href="single-product.html" rel="nofollow">Select
-                                            options</a>
-                                    </li>
-
-                                    <li class="product">
-                                        <a href="single-product.html">
-                                            <img alt="T_4_front" class="attachment-shop_catalog wp-post-image"
-                                                 height="325" src="site/img/product-4.jpg" width="325">
-                                            <h3>Ship Your Idea</h3>
-                                            <span class="price"><span class="amount">£20.00</span></span>
-                                        </a>
-
-                                        <a class="add_to_cart_button" data-product_id="22" data-product_sku=""
-                                           data-quantity="1" href="single-product.html" rel="nofollow">Select
-                                            options</a>
-                                    </li>
-                                </ul>
-                            </div>
-
-
-                            <div class="cart_totals ">
-                                <h2>Cart Totals</h2>
-
-                                <table cellspacing="0">
-                                    <tbody>
-                                    <tr class="cart-subtotal">
-                                        <th>Cart Subtotal</th>
-                                        <td><span class="amount">£15.00</span></td>
-                                    </tr>
-
-                                    <tr class="shipping">
-                                        <th>Shipping and Handling</th>
-                                        <td>Free Shipping</td>
-                                    </tr>
-
-                                    <tr class="order-total">
-                                        <th>Order Total</th>
-                                        <td><strong><span class="amount">£15.00</span></strong></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
-
-                            <form action="#" class="shipping_calculator" method="post">
-                                <h2><a aria-controls="calcalute-shipping-wrap" aria-expanded="false"
-                                       class="shipping-calculator-button" data-toggle="collapse"
-                                       href="#calcalute-shipping-wrap">Calculate Shipping</a></h2>
-
-                                <section class="shipping-calculator-form collapse" id="calcalute-shipping-wrap">
-
-                                    <p class="form-row form-row-wide">
-
-                                        <select class="country_to_state" id="calc_shipping_country"
-                                                name="calc_shipping_country" rel="calc_shipping_state"
-                                                th:insert="/stupid-fragment :: countryList">
-                                        </select>
-                                    </p>
-
-                                    <p class="form-row form-row-wide"><input class="input-text" id="calc_shipping_state"
-                                                                             name="calc_shipping_state"
-                                                                             placeholder="State / county" type="text"
-                                                                             value=""></p>
-
-                                    <p class="form-row form-row-wide"><input class="input-text"
-                                                                             id="calc_shipping_postcode"
-                                                                             name="calc_shipping_postcode"
-                                                                             placeholder="Postcode / Zip" type="text"
-                                                                             value=""></p>
-
-
-                                    <p>
-                                        <button class="button" name="calc_shipping" type="submit" value="1">Update
-                                            Totals
+                <div class="col-md-8">
+                    <div class="product-content-right">
+                        <!-- cart table start -->
+                        <table class="table table-bordered">
+                            <thead class="thead-light">
+                            <tr>
+                                <th scope="col">&nbsp;</th>
+                                <th scope="col">&nbsp;</th>
+                                <th scope="col">Product</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Total</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="productEntry : ${cart}">
+                                <td class="text-center align-middle" scope="row">
+                                    <form action="#" method="post"
+                                          th:action="@{/cart/del/{id}(id = ${productEntry.getKey().id})}">
+                                        <button class="btn btn-outline-danger border-0 sign text-success"
+                                                title="Remove this item" type="submit">×
                                         </button>
-                                    </p>
+                                    </form>
+                                </td>
 
-                                </section>
-                            </form>
+                                <td class="text-center align-middle">
+                                    <a href="single-product.html"
+                                       th:href="@{/product/{id}(id = ${productEntry.getKey().id})}">
+                                        <img alt="poster_1_up" class="img-5r" src="img/product-thumb-2.jpg"
+                                             th:src="${productEntry.getKey().imagesUrls?.stream().findAny().get()}">
+                                    </a>
+                                </td>
 
+                                <td class="text-center align-middle">
+                                    <a class="nav-link product" href="single-product.html"
+                                       th:href="@{/product/{id}(id = ${productEntry.getKey().id})}"
+                                       th:text="${productEntry.getKey().name}">Ship Your Idea</a>
+                                </td>
 
-                        </div>
+                                <td class="text-center align-middle">
+                                    <span th:text="${productEntry.getKey().price}">£15.00</span>
+                                </td>
+
+                                <td class="text-center align-middle">
+                                    <!-- размеры для мелких кнопок -->
+                                    <input class="btn btn-success sign" type="button" value="-"/>
+                                    <input class="input-text text-right border border-success" min="0" size="4" step="1"
+                                           style="width:4rem;" th:value="${productEntry.getValue().intValue()}"
+                                           title="Qty" type="number" value="1"/>
+                                    <input class="btn btn-success sign" type="button" value="+"/>
+                                </td>
+
+                                <td class="text-center align-middle">
+                                    <span th:text="${productEntry.getValue().intValue() * productEntry.getKey().price}">£15.00</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="6" style="margin-bottom: -2px;">
+                                    <div class="form-inline float-left mb-2">
+                                        <label id="basic-addon1">Coupon:</label>
+                                        <input aria-describedby="basic-addon1" aria-label="Username"
+                                               class="form-control" placeholder="Coupon code" type="text">
+                                    </div>
+                                    <input class="btn btn-success mb-2 mx-1" name="apply_coupon" type="submit"
+                                           value="Apply Coupon"/>
+                                    <input class="btn btn-success mb-2 mx-1" name="update_cart" type="submit"
+                                           value="Update Cart"/>
+                                    <input class="btn btn-success mb-2 mx-1" name="proceed" type="submit"
+                                           value="Proceed to Checkout"/>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <!-- card table end -->
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- for you content end -->
     </div>
 </div>
 
-<div th:replace="/fragments :: footer"></div>
+<div th:replace="/templates/fragments :: footer"></div>
 </body>
 </html>
