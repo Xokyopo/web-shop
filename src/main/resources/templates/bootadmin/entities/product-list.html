@@ -27,7 +27,9 @@
                         <th scope="col">id</th>
                         <th scope="col">name</th>
                         <th scope="col">brand</th>
+                        <th scope="col">price</th>
                         <th scope="col">categories</th>
+                        <th scope="col">images count</th>
                         <th scope="col">actions</th>
                     </tr>
                     </thead>
@@ -36,17 +38,20 @@
                         <th scope="row" th:text="${product.id}">id</th>
                         <td th:text="${product.name}">brand name</td>
                         <td th:text="${product.brand?.name}">brand name</td>
+                        <td th:text="${product.price}">product price</td>
                         <td>
                             <p class="d-inline p-1 bg-primary text-white mb-0"
                                th:each="category : ${product.categories}"
                                th:text="${category.name}">product category</p>
                         </td>
+                        <td th:text="${product.imagesUrls.size()}">brand image count</td>
                         <td class="row">
                             <!-- поменять потом скоуп на другой так как он делает буквы жирными.-->
                             <a class="btn btn-warning mr-2" th:href="@{${rootDir} + '/show/{id}'(id = ${entityID})}"
                                type="button">edit</a>
-                            <a class="btn btn-danger" th:href="@{${rootDir} + '/del/{id}'(id = ${entityID})}"
-                               type="button">del</a>
+                            <form action="#" method="post" th:action="@{${rootDir} + '/del/{id}'(id = ${entityID})}">
+                                <button class="btn btn-danger" type="submit">del</button>
+                            </form>
                         </td>
                     </tr>
                     </tbody>
