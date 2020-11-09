@@ -22,12 +22,6 @@ public class ImageService extends AService<Image, ImageRepository> {
         } else {
             multipartFiles.stream().findFirst().ifPresent(entity::setAll);
         }
-
-        System.out.println("***************************************");
-        System.out.println("multipartFiles == null = " + (multipartFiles == null));
-        System.out.println("multipartFiles.isEmpty = " + multipartFiles.isEmpty());
-        System.out.println(entity);
-        System.out.println("***************************************");
         this.getRepository().save(entity);
     }
 }
