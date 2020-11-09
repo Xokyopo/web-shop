@@ -1,9 +1,6 @@
 package ru.geekbrains.coursework.webshop.app.domain.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.PreRemove;
+import javax.persistence.*;
 import java.util.Set;
 
 @Entity(name = "products")
@@ -12,6 +9,9 @@ public class Product extends AEntity {
     private Set<Category> categories;
     @ManyToOne
     private Brand brand;
+    @ElementCollection
+    private Set<String> imagesUrls;
+    private long price;
 
     public Set<Category> getCategories() {
         return this.categories;
@@ -27,6 +27,22 @@ public class Product extends AEntity {
 
     public void setBrand(Brand brand) {
         this.brand = brand;
+    }
+
+    public Set<String> getImagesUrls() {
+        return imagesUrls;
+    }
+
+    public void setImagesUrls(Set<String> imagesUrls) {
+        this.imagesUrls = imagesUrls;
+    }
+
+    public long getPrice() {
+        return price;
+    }
+
+    public void setPrice(long price) {
+        this.price = price;
     }
 
     @PreRemove
