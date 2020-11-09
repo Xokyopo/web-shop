@@ -64,7 +64,7 @@
                             <li aria-current="page" class="breadcrumb-item active">
                                 Home
                             </li>
-                            <li aria-current="page" class="breadcrumb-item active" th:text="*{brand}">
+                            <li aria-current="page" class="breadcrumb-item active" th:text="*{brand.name}">
                                 Brand Name
                             </li>
                             <li aria-current="page" class="breadcrumb-item active" th:text="*{name}">
@@ -80,11 +80,13 @@
                                  th:if="*{imagesUrls}">
                                 <ol class="carousel-indicators">
                                     <li data-slide-to="0" data-target="#carouselExampleIndicators"
-                                        th:attr="data-slide-to=${num}" th:classappend="${num == 0} ? 'active'"
-                                        th:each="num : ${#numbers.sequence(0, product.imagesUrls.size() -1)}"></li>
+                                        th:attr="data-slide-to=${num}"
+                                        th:classappend="${status.first} ? 'active'"
+                                        th:each="num, status : ${#numbers.sequence(0, product.imagesUrls.size() -1)}"></li>
                                 </ol>
                                 <div class="carousel-inner">
-                                    <div class="carousel-item" th:each="image : *{imagesUrls}">
+                                    <div class="carousel-item" th:classappend="${status.first}? active"
+                                         th:each="image,status : *{imagesUrls}">
                                         <img alt="..." class="d-block w-100"
                                              src="http://www.stilnos.com/wp-content/uploads/2019/06/hol2.jpg"
                                              th:src="${image}">
