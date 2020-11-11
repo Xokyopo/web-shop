@@ -1,254 +1,82 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org">
-<head th:insert="/fragments :: head(title='eElectronics - HTML eCommerce Template')">
+<head th:insert="/templates/fragments :: head(title='eElectronics - HTML eCommerce Template')">
 </head>
 <body>
+<div th:replace="/templates/fragments :: header(current='Shop')"></div>
 
-<div th:replace="/fragments :: header"></div>
+<div th:replace="/templates/fragments :: titleArea(text='Shop')"></div>
 
-<div th:replace="/fragments :: titleArea(text='Shop')"></div>
+<div class="row">
+    <div class="col">
+        <!-- for you content start -->
 
-<div class="single-product-area">
-    <div class="zigzag-bottom"></div>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3 col-sm-6">
-                <div class="single-shop-product">
-                    <div class="product-upper">
-                        <img alt="" src="site/img/product-2.jpg">
+        <div class="container">
+            <div class="row">
+
+                <!-- item place start -->
+
+                <div class="card m-2" th:each="product : ${productsPages.content}">
+                    <div class="img">
+                        <img alt="..." src="img/product-1.jpg" th:src="${product.imagesUrls?.stream().findAny().get()}">
                     </div>
-                    <h2><a href="">Apple new mac book 2015 March :P</a></h2>
-                    <div class="product-carousel-price">
-                        <ins>$899.00</ins>
-                        <del>$999.00</del>
-                    </div>
-
-                    <div class="product-option-shop">
-                        <a class="add_to_cart_button" data-product_id="70" data-product_sku="" data-quantity="1"
-                           href="/canvas/shop/?add-to-cart=70" rel="nofollow">Add to cart</a>
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <a class="text-success" href="#" th:href="@{/product/{id}(id = ${product.id})}"
+                               th:text="${product.name}">product name</a>
+                        </h5>
+                        <div>
+                            <ins class="text-success h6 font-weight-bolder" th:text="${product.price}">$899.00</ins>
+                            <del class="ml-2 h6" th:text="${product.price * 1.13}">$999.00</del>
+                        </div>
+                        <div>
+                            <form action="#" method="post" th:action="@{/shop/addToCart}">
+                                <input name="id" th:value="${product.id}" type="hidden"/>
+                                <button class="btn btn-success h6 m-0 mt-2" type="submit">
+                                    <i class="fa fa-shopping-cart"></i> Add to cart
+                                </button>
+                            </form>
+                            <!--                                <a class="btn btn-success h6 m-0 mt-2" href="">Add to cart</a>-->
+                            <!--                                <a href="#"><i class="fa fa-link"></i> See details</a>-->
+                        </div>
                     </div>
                 </div>
+
+                <!-- item place end -->
             </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="single-shop-product">
-                    <div class="product-upper">
-                        <img alt="" src="site/img/product-1.jpg">
-                    </div>
-                    <h2><a href="">Apple new mac book 2015 March :P</a></h2>
-                    <div class="product-carousel-price">
-                        <ins>$899.00</ins>
-                        <del>$999.00</del>
-                    </div>
 
-                    <div class="product-option-shop">
-                        <a class="add_to_cart_button" data-product_id="70" data-product_sku="" data-quantity="1"
-                           href="/canvas/shop/?add-to-cart=70" rel="nofollow">Add to cart</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="single-shop-product">
-                    <div class="product-upper">
-                        <img alt="" src="site/img/product-3.jpg">
-                    </div>
-                    <h2><a href="">Apple new mac book 2015 March :P</a></h2>
-                    <div class="product-carousel-price">
-                        <ins>$899.00</ins>
-                        <del>$999.00</del>
-                    </div>
+            <div class="row justify-content-center mt-5" th:if="${productsPages.totalPages > 1}">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination pagination-sm m-0">
+                        <li class="page-item" th:if="${productsPages.hasPrevious()}">
+                            <a class="page-link text-success" href="#"
+                               th:href="@{/shop(page = ${productsPages.previousPageable().pageNumber + 1})}">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
 
-                    <div class="product-option-shop">
-                        <a class="add_to_cart_button" data-product_id="70" data-product_sku="" data-quantity="1"
-                           href="/canvas/shop/?add-to-cart=70" rel="nofollow">Add to cart</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="single-shop-product">
-                    <div class="product-upper">
-                        <img alt="" src="site/img/product-4.jpg">
-                    </div>
-                    <h2><a href="">Apple new mac book 2015 March :P</a></h2>
-                    <div class="product-carousel-price">
-                        <ins>$899.00</ins>
-                        <del>$999.00</del>
-                    </div>
+                        <li class="page-item" th:classappend="${productsPages.getNumber() + 1 == num} ? 'active'"
+                            th:each="num : ${#numbers.sequence(1, productsPages.totalPages)}">
+                            <a class="page-link text-success" href="#" th:href="@{/shop(page = ${num})}"
+                               th:text="${num}">1</a>
+                        </li>
 
-                    <div class="product-option-shop">
-                        <a class="add_to_cart_button" data-product_id="70" data-product_sku="" data-quantity="1"
-                           href="/canvas/shop/?add-to-cart=70" rel="nofollow">Add to cart</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="single-shop-product">
-                    <div class="product-upper">
-                        <img alt="" src="site/img/product-2.jpg">
-                    </div>
-                    <h2><a href="">Apple new mac book 2015 March :P</a></h2>
-                    <div class="product-carousel-price">
-                        <ins>$899.00</ins>
-                        <del>$999.00</del>
-                    </div>
-
-                    <div class="product-option-shop">
-                        <a class="add_to_cart_button" data-product_id="70" data-product_sku="" data-quantity="1"
-                           href="/canvas/shop/?add-to-cart=70" rel="nofollow">Add to cart</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="single-shop-product">
-                    <div class="product-upper">
-                        <img alt="" src="site/img/product-1.jpg">
-                    </div>
-                    <h2><a href="">Apple new mac book 2015 March :P</a></h2>
-                    <div class="product-carousel-price">
-                        <ins>$899.00</ins>
-                        <del>$999.00</del>
-                    </div>
-
-                    <div class="product-option-shop">
-                        <a class="add_to_cart_button" data-product_id="70" data-product_sku="" data-quantity="1"
-                           href="/canvas/shop/?add-to-cart=70" rel="nofollow">Add to cart</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="single-shop-product">
-                    <div class="product-upper">
-                        <img alt="" src="site/img/product-3.jpg">
-                    </div>
-                    <h2><a href="">Apple new mac book 2015 March :P</a></h2>
-                    <div class="product-carousel-price">
-                        <ins>$899.00</ins>
-                        <del>$999.00</del>
-                    </div>
-
-                    <div class="product-option-shop">
-                        <a class="add_to_cart_button" data-product_id="70" data-product_sku="" data-quantity="1"
-                           href="/canvas/shop/?add-to-cart=70" rel="nofollow">Add to cart</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="single-shop-product">
-                    <div class="product-upper">
-                        <img alt="" src="site/img/product-4.jpg">
-                    </div>
-                    <h2><a href="">Apple new mac book 2015 March :P</a></h2>
-                    <div class="product-carousel-price">
-                        <ins>$899.00</ins>
-                        <del>$999.00</del>
-                    </div>
-
-                    <div class="product-option-shop">
-                        <a class="add_to_cart_button" data-product_id="70" data-product_sku="" data-quantity="1"
-                           href="/canvas/shop/?add-to-cart=70" rel="nofollow">Add to cart</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="single-shop-product">
-                    <div class="product-upper">
-                        <img alt="" src="site/img/product-2.jpg">
-                    </div>
-                    <h2><a href="">Apple new mac book 2015 March :P</a></h2>
-                    <div class="product-carousel-price">
-                        <ins>$899.00</ins>
-                        <del>$999.00</del>
-                    </div>
-
-                    <div class="product-option-shop">
-                        <a class="add_to_cart_button" data-product_id="70" data-product_sku="" data-quantity="1"
-                           href="/canvas/shop/?add-to-cart=70" rel="nofollow">Add to cart</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="single-shop-product">
-                    <div class="product-upper">
-                        <img alt="" src="site/img/product-1.jpg">
-                    </div>
-                    <h2><a href="">Apple new mac book 2015 March :P</a></h2>
-                    <div class="product-carousel-price">
-                        <ins>$899.00</ins>
-                        <del>$999.00</del>
-                    </div>
-
-                    <div class="product-option-shop">
-                        <a class="add_to_cart_button" data-product_id="70" data-product_sku="" data-quantity="1"
-                           href="/canvas/shop/?add-to-cart=70" rel="nofollow">Add to cart</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="single-shop-product">
-                    <div class="product-upper">
-                        <img alt="" src="site/img/product-3.jpg">
-                    </div>
-                    <h2><a href="">Apple new mac book 2015 March :P</a></h2>
-                    <div class="product-carousel-price">
-                        <ins>$899.00</ins>
-                        <del>$999.00</del>
-                    </div>
-
-                    <div class="product-option-shop">
-                        <a class="add_to_cart_button" data-product_id="70" data-product_sku="" data-quantity="1"
-                           href="/canvas/shop/?add-to-cart=70" rel="nofollow">Add to cart</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="single-shop-product">
-                    <div class="product-upper">
-                        <img alt="" src="site/img/product-4.jpg">
-                    </div>
-                    <h2><a href="">Apple new mac book 2015 March :P</a></h2>
-                    <div class="product-carousel-price">
-                        <ins>$899.00</ins>
-                        <del>$999.00</del>
-                    </div>
-
-                    <div class="product-option-shop">
-                        <a class="add_to_cart_button" data-product_id="70" data-product_sku="" data-quantity="1"
-                           href="/canvas/shop/?add-to-cart=70" rel="nofollow">Add to cart</a>
-                    </div>
-                </div>
+                        <li class="page-item" th:if="${productsPages.hasNext()}">
+                            <a class="page-link text-success" href="#"
+                               th:href="@{/shop(page = ${productsPages.nextPageable().pageNumber + 1})}">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-md-12">
-                <div class="product-pagination text-center">
-                    <nav>
-                        <ul class="pagination">
-                            <li>
-                                <a aria-label="Previous" href="#">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                            <li><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">5</a></li>
-                            <li>
-                                <a aria-label="Next" href="#">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-        </div>
+        <!-- for you content end -->
     </div>
 </div>
 
-<div th:replace="/fragments :: footer">
-
-</div>
+<div th:replace="/templates/fragments :: footer"></div>
 </body>
 </html>

@@ -11,9 +11,6 @@
             <column name="name" value="Acer"/>
         </insert>
         <insert tableName="brands">
-            <column name="name" value="Amazon"/>
-        </insert>
-        <insert tableName="brands">
             <column name="name" value="Apple"/>
         </insert>
         <insert tableName="brands">
@@ -30,9 +27,6 @@
         </insert>
         <insert tableName="brands">
             <column name="name" value="Bose"/>
-        </insert>
-        <insert tableName="brands">
-            <column name="name" value="Canon"/>
         </insert>
         <insert tableName="brands">
             <column name="name" value="Canon"/>

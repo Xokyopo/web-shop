@@ -8,5 +8,7 @@
     <include file="drop-brands_products.xml" relativeToChangelogFile="true"/>
     <include file="create-entity-image.xml" relativeToChangelogFile="true"/>
     <include file="update-entity-brand.xml" relativeToChangelogFile="true"/>
+    <include file="create-link-products-images_urls.xml" relativeToChangelogFile="true"/>
+    <include file="update-entity-product.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>

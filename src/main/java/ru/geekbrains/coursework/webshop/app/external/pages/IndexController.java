@@ -11,28 +11,7 @@ public class IndexController {
     @GetMapping
     public String getMainPage() {
 
-        return "/index";
+        return "index";
     }
 
-    //TODO удалить
-    @GetMapping("/cart")
-    public String getCart() {
-        return "/cart";
-    }
-
-
-    @GetMapping("/checkout")
-    public String getCheckout() {
-        return "/checkout";
-    }
-
-    @GetMapping("/shop")
-    public String getShop() {
-        return "/shop";
-    }
-
-    @GetMapping("/single-product")
-    public String getSingleProduct() {
-        return "/single-product";
-    }
 }
