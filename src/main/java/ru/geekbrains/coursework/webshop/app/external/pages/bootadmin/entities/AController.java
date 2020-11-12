@@ -1,9 +1,6 @@
 package ru.geekbrains.coursework.webshop.app.external.pages.bootadmin.entities;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,11 +10,7 @@ import ru.geekbrains.coursework.webshop.app.domain.AService;
 import ru.geekbrains.coursework.webshop.app.external.exceptions.EntityNotFoundException;
 import ru.geekbrains.coursework.webshop.app.utils.ProgramUtils;
 
-import java.util.Optional;
-
 public abstract class AController<E, R extends AService<E, ? extends ARepository<E>>> {
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
-    private boolean debug;
     private String entityName;
     private String rootPath;
     private String entitiesTablePath;
@@ -25,9 +18,7 @@ public abstract class AController<E, R extends AService<E, ? extends ARepository
     private R service;
 
     @Autowired
-    public void init(R service, Environment environment) {
-        this.debug = Optional.ofNullable(environment.getProperty("mylogger.debug", boolean.class)).orElse(false);
-        this.getLogger().ifPresent((myLogger) -> myLogger.info("run method name {public void init(R service, Environment environment)}"));
+    public void init(R service) {
         rootPath = ProgramUtils.getRequestMappingValue(this).stream()
                 .map(ProgramUtils::addSlashOnStartAndRemoveOnEnd)
                 .findFirst()
@@ -36,35 +27,28 @@ public abstract class AController<E, R extends AService<E, ? extends ARepository
         this.entityName = service.getEntityName().toLowerCase();
         this.entitiesTablePath = rootPath + "-list";
         this.editFormPath = rootPath + "-edit-form";
-        this.getLogger().ifPresent((myLogger) -> myLogger.debug("end method name {public void init(R service, Environment environment)}"));
-        this.getLogger().ifPresent((myLogger) -> myLogger.debug(String.format("Variable init as%n RootPath = [%s]%n " +
-                "entityName = [%s]%n entitiesTablePath = [%s]%n editFormPath = [%s]%n", rootPath, entityName, entitiesTablePath, editFormPath)));
     }
 
     @GetMapping("/showAll")
     public String showAll(Model model) {
-        this.getLogger().ifPresent((myLogger) -> myLogger.debug("run method name {public String showAll(Model model)}"));
         model.addAttribute(this.entityName + "s", this.service.getAll());
         return this.entitiesTablePath;
     }
 
     @GetMapping("/show/{id}")
     public String show(Model model, @PathVariable("id") Long id) {
-        this.getLogger().ifPresent((myLogger) -> myLogger.debug("run method name {public String show(Model model, @PathVariable('id') Long id)} where id is [" + id + "]"));
         model.addAttribute(this.entityName, this.service.getById(id).orElseThrow(() -> new EntityNotFoundException("Entity with id [" + id + "not found")));
         return this.editFormPath;
     }
 
     @PostMapping("/del/{id}")
     public String delete(@PathVariable("id") Long id) {
-        this.getLogger().ifPresent((myLogger) -> myLogger.debug("run method name {public String delete(Model model, @PathVariable('id') Long id)} where id is [" + id + "]"));
         this.service.delete(id);
         return "redirect:" + this.rootPath + "/showAll";
     }
 
     @PostMapping("/save")
     public String save(E entity) {
-        this.getLogger().ifPresent((myLogger) -> myLogger.debug("run method name {public String save(E entity)} where entity is [" + entity + "]"));
         this.service.save(entity);
         return "redirect:" + this.rootPath + "/showAll";
     }
@@ -73,19 +57,15 @@ public abstract class AController<E, R extends AService<E, ? extends ARepository
         return service;
     }
 
-    public String getRootPath() {
+    protected String getRootPath() {
         return rootPath;
     }
 
-    public String getEntitiesTablePath() {
+    protected String getEntitiesTablePath() {
         return entitiesTablePath;
     }
 
-    public String getEditFormPath() {
+    protected String getEditFormPath() {
         return editFormPath;
-    }
-
-    protected Optional<Logger> getLogger() {
-        return debug ? Optional.of(logger) : Optional.empty();
     }
 }
