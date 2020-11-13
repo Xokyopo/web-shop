@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/bootadmin/entities/image")
+@RequestMapping("/admin/entities/image")
 public class ImageController extends AController<Image, ImageService> {
 
     @Override

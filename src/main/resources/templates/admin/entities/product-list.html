@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="/admin/templates/fragments :: head(title='template')">
+</head>
+
+<body>
+<div class="d-flex overflow-hidden vh-100 flex-column">
+    <header class="top-menu" th:replace="/admin/templates/fragments :: header">
+    </header>
+
+    <main class="d-flex h-100">
+
+        <div class="left-menu bg-success" th:replace="/admin/templates/fragments :: leftMenu">
+        </div>
+
+        <div class="overflow-auto p-3 flex-grow-1">
+            <div class="p-3">
+
+                <!-- content area start -->
+
+                <div th:with="rootDir='/admin/entities/product'">
+                    <div class="row justify-content-center" style="margin: 10px">
+                        <a class="btn btn-success" th:href="@{${rootDir} + '/show/0'}" type="button">add</a>
+                    </div>
+
+                    <table class="table table-striped" id="myTable">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">id</th>
+                            <th scope="col">name</th>
+                            <th scope="col">brand</th>
+                            <th scope="col">price</th>
+                            <th scope="col">categories</th>
+                            <th scope="col">images count</th>
+                            <th scope="col">actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="product : ${products}" th:with="entityID=${product.id}">
+                            <th scope="row" th:text="${product.id}">id</th>
+                            <td th:text="${product.name}">brand name</td>
+                            <td th:text="${product.brand?.name}">brand name</td>
+                            <td th:text="${product.price}">product price</td>
+                            <td>
+                                <p class="d-inline p-1 bg-primary text-white mb-0"
+                                   th:each="category : ${product.categories}"
+                                   th:text="${category.name}">product category</p>
+                            </td>
+                            <td th:text="${product.imagesUrls.size()}">brand image count</td>
+                            <td class="row">
+                                <!-- поменять потом скоуп на другой так как он делает буквы жирными.-->
+                                <a class="btn btn-warning mr-2" th:href="@{${rootDir} + '/show/{id}'(id = ${entityID})}"
+                                   type="button">edit</a>
+                                <form action="#" method="post"
+                                      th:action="@{${rootDir} + '/del/{id}'(id = ${entityID})}">
+                                    <button class="btn btn-danger" type="submit">del</button>
+                                </form>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- content area end-->
+
+            </div>
+        </div>
+    </main>
+
+</div>
+
+
+<footer th:replace="/admin/templates/fragments ::footer">
+</footer>
+</body>
+
+</html>

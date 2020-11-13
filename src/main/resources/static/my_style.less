@@ -23,6 +23,12 @@ a {
       color: #17a78b !important;
     }
   }
+
+  &.text-light {
+    &:hover, &:focus {
+      color: #1abc9c !important;
+    }
+  }
 }
 
 .btn-success {
@@ -34,6 +40,8 @@ a {
 
   &:focus, &:hover, &.active {
     background-color: #222 !important;
+    border: none;
+    box-shadow: none;
   }
 }
 
@@ -444,3 +452,84 @@ footer {
 }
 
 //  for main page end
+
+//for admin panel start
+.left-menu {
+  max-width: 20rem;
+  min-width: fit-content;
+
+  .nav-link {
+    user-select: none;
+  }
+
+  &:not(:hover) {
+    .nav-link {
+      span {
+        transition: all .5s;
+        font-size: 0;
+      }
+    }
+
+    .dropdown {
+      .navbar-nav {
+        a {
+          transition: all .5s;
+          font-size: 0;
+          padding: 0 !important;
+        }
+      }
+
+      .dropdown-toggle::after {
+        content: none;
+      }
+    }
+  }
+
+  &:hover {
+    .nav-link {
+      .fa {
+        margin-right: .25rem;
+      }
+
+      span {
+        transition: all .5s;
+      }
+    }
+
+    .dropdown {
+      .dropdown-toggle::after {
+        content: "";
+      }
+
+      .drop-check {
+        &:not(:checked) {
+          & ~ .navbar-nav {
+            a {
+              transition: all .5s;
+              font-size: 0;
+              padding: 0 !important;
+            }
+          }
+        }
+
+        &:checked {
+          & ~ .dropdown-toggle::after {
+            border-bottom: .3em solid;
+            border-top: 0;
+          }
+
+          & ~ .navbar-nav {
+            //.fa {
+            //  margin-left: .25rem;
+            //}
+            a {
+              transition: all .5s;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+//for admin panel end

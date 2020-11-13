@@ -11,7 +11,7 @@ import ru.geekbrains.coursework.webshop.app.domain.UserService;
 import ru.geekbrains.coursework.webshop.app.domain.entities.User;
 
 @Controller
-@RequestMapping("/bootadmin/entities/user")
+@RequestMapping("/admin/entities/user")
 public class UserController extends AController<User, UserService> {
     private RoleService roleService;
 
