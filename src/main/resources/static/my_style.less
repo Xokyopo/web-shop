@@ -17,6 +17,16 @@ body {
   font-family: 'Titillium Web', sans-serif;
 }
 
+.col {
+  margin: 0;
+  padding: 0;
+}
+
+.row {
+  padding: 0;
+  margin: 0;
+}
+
 a {
   &.text-success {
     &:focus, &:hover {
@@ -316,9 +326,10 @@ footer {
 /* zigzag component start */
 // new component
 .zigzag {
-  width: 108%;
+  width: 120%;
   height: 120px;
   position: relative;
+  margin: 0 -5rem;
 
   &-bottom-lr {
     bottom: -60px;
@@ -385,7 +396,7 @@ footer {
 .card {
   flex-flow: column nowrap;
   align-items: flex-end;
-  width: 16.5rem;
+  width: 15.5rem;
   height: 26rem;
   line-height: 0;
 
@@ -448,6 +459,10 @@ footer {
     padding: 2rem;
     width: 30rem;
     background: rgba(0, 0, 0, 0.5);
+  }
+
+  img {
+    filter: grayscale(50%);
   }
 }
 
