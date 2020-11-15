@@ -212,13 +212,12 @@
                 </div>
 
                 <div class="col-md-3 col-sm-6">
-                    <h2 class="font-weight-lighter text-light">Categories</h2>
+                    <h2 class="font-weight-lighter text-light">Site Navigation</h2>
                     <ul class="nav flex-column">
-                        <li class="nav-item"><a class="nav-link" href="#">Mobile Phone</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Home accesseries</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">LED TV</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Computer</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Gadets</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#" th:href="@{/}">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#" th:href="@{/shop}">Shop</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#" th:href="@{/cart}">Cart</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Info</a></li>
                     </ul>
                 </div>
 
@@ -245,7 +244,7 @@
         <div class="container">
             <div class="row justify-content-between">
                 <div class="copyright">
-                    <p>&copy; 2015 eElectronics. All Rights Reserved. Coded with<i class="fa fa-heart"></i> by <a
+                    <p>&copy; 2020 eElectronics. All Rights Reserved. Coded with<i class="fa fa-heart"></i> by <a
                             class="nav-link d-inline-flex" href="http://wpexpand.com">WP Expand</a></p>
                 </div>
 
@@ -260,6 +259,9 @@
     </div>
 
     <!-- End footer bottom area -->
+
+    <!--  add chat -->
+    <div th:replace="/templates/extras-fragments :: chat"></div>
 
     <!-- less preprocessor plugin -->
     <script src="//cdn.jsdelivr.net/npm/less"></script>
