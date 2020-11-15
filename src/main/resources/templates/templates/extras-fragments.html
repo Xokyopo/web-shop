@@ -113,7 +113,7 @@
             <div class="chat" id="chat" tabindex="-1">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <form>
+                        <form id="chat_form">
                             <div class="modal-header justify-content-center">
                                 <h5 class="modal-title">Chat</h5>
                             </div>
@@ -140,12 +140,10 @@
             <!-- Chat button end -->
 
             <!--  STOMP Chat  -->
-            <script src="/webjars/jquery/jquery.min.js" th:src="@{/webjars/jquery/jquery.min.js}"></script>
-            <script src="/webjars/sockjs-client/sockjs.min.js"
-                    th:src="@{/webjars/sockjs-client/sockjs.min.js}"></script>
-            <script src="/webjars/stomp-websocket/stomp.min.js"
-                    th:src="@{/webjars/stomp-websocket/stomp.min.js}"></script>
-            <script src="/app.js" th:src="@{/app.js}"></script>
+            <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+            <script th:src="@{/webjars/sockjs-client/sockjs.min.js}"></script>
+            <script th:src="@{/webjars/stomp-websocket/stomp.min.js}"></script>
+            <script th:src="@{/chat_engine.js}"></script>
 
         </div>
         <!-- for you content end -->
