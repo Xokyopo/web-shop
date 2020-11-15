@@ -28,7 +28,7 @@
                     </div>
 
                     <!--      image preview          -->
-                    <div class="card" style="width: 18rem;" th:if="${image.id != 0}">
+                    <div class="card mb-5" style="width: 18rem; height: 29rem" th:if="${image.id != 0}">
                         <img alt="..." class="card-img-top" th:src="@{${rootDir}  + '/get/{id}'(id = ${image.id})}"/>
                         <div class="card-body">
                             <h5 class="card-title" th:text="${image.name}">Card title</h5>
