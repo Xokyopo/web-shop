@@ -3,9 +3,13 @@
 $(document).ready(updateCartStatus());
 
 function updateCartStatus() {
+    console.log("LOG!send json");
     getData("/cart/count", null, {"#fullPrice": "fullPrice", "#productCount": "productCount"});
+    console.log("update status");
     if ($('#productCount').text() === '0') {
         $('#shopping-item').hide();
+    } else {
+        $('#shopping-item').show();
     }
 }
 
@@ -21,9 +25,11 @@ function getData(targetUrl, sendingData, updatedElements) {
 }
 
 function updateElements(updatedElements, elementsData) {
+    console.log("LOG!update element")
     for (let key in updatedElements) {
         $(key).text(elementsData[updatedElements[key]])
     }
+    console.log("LOG!update element finished")
 }
 
 function convertDataToJSON(targetData) {

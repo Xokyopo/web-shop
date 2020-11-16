@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:th="http://www.thymeleaf.org">
 
 <head th:fragment="head(title)">
@@ -56,10 +57,15 @@
                         </li>
 
                         <li class="nav-item">
-                            <a aria-disabled="true" class="nav-link disabled" href="#" tabindex="-1"
+                            <a class="nav-link" href="#" sec:authorize="!isAuthenticated()" tabindex="-1"
                                th:href="@{/login}">
                                 <i class="fa fa-user"></i> Login
                             </a>
+                            <form method="post" sec:authorize="isAuthenticated()" tabindex="-1" th:action="@{/logout}">
+                                <button class="btn btn-link nav-link" type="submit">
+                                    <i class="fa fa-user"></i> Logout
+                                </button>
+                            </form>
                         </li>
                     </ul>
                 </div>
@@ -87,18 +93,12 @@
                     </div>
                 </div>
 
-                <div class="col-sm-6" th:if="${productCount}">
-                    <!--                    <div class="shopping-item">-->
-                    <!--                        <a href="cart.html" th:href="@{/cart}">-->
-                    <!--                            Cart - <span class="cart-amunt" th:text="${fullPrice}">$800</span> <i-->
-                    <!--                                class="fa fa-shopping-cart"></i> <span class="product-count" th:text="${productCount}">5</span>-->
-                    <!--                        </a>-->
-                    <!--                    </div>-->
+                <div class="col-sm-6">
                     <div class="shopping-item" id="shopping-item">
                         <a href="cart.html" th:href="@{/cart}">
-                            Cart - <span class="cart-amunt" id="fullPrice">нет</span> <i
-                                class="fa fa-shopping-cart"></i> <span class="product-count"
-                                                                       id="productCount">нет</span>
+                            Cart - <span class="cart-amunt" id="fullPrice">нет</span>
+                            <i class="fa fa-shopping-cart"></i>
+                            <span class="product-count" id="productCount">нет</span>
                         </a>
                     </div>
                 </div>
