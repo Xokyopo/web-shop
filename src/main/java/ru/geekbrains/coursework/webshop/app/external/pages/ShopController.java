@@ -27,7 +27,6 @@ public class ShopController {
 
     @GetMapping
     public String show(Model model, @RequestParam("page") Optional<Integer> page) {
-        this.cartController.setCartStat(model);
         model.addAttribute("productsPages", this.productService.getAll(PageRequest.of(page.orElse(1) - 1, PRODUCT_LIMIT_ON_PAGE)));
         return "shop";
     }

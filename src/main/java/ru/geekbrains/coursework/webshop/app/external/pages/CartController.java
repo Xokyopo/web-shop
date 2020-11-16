@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.annotation.SessionScope;
 import ru.geekbrains.coursework.webshop.app.domain.ProductService;
 import ru.geekbrains.coursework.webshop.app.domain.entities.Product;
+import ru.geekbrains.coursework.webshop.app.external.pages.represantations.CartStatus;
 
 import java.util.HashMap;
 import java.util.stream.Collectors;
@@ -18,6 +19,8 @@ import java.util.stream.Collectors;
 public class CartController {
     private ProductService productService;
     private HashMap<Product, Integer> cart;
+    private long fullPrice;
+    private long productCount;
 
     @Autowired
     public CartController(ProductService productService) {
@@ -28,14 +31,21 @@ public class CartController {
     @GetMapping
     public String show(Model model) {
         model.addAttribute("cart", this.cart.entrySet());
-        this.setCartStat(model);
         model.addAttribute("relatedProducts", this.productService.getAll().parallelStream().limit(6).collect(Collectors.toList()));
         return "cart";
     }
 
     @PostMapping("/del/{id}")
     public String del(@PathVariable("id") long id) {
-        this.cart.entrySet().removeIf(productIntegerEntry -> productIntegerEntry.getKey().getId() == id);
+        this.cart.entrySet().removeIf(productIntegerEntry -> {
+            if (productIntegerEntry.getKey().getId() == id) {
+
+                this.productCount -= productIntegerEntry.getValue();
+                this.fullPrice -= productIntegerEntry.getKey().getPrice() * productIntegerEntry.getValue();
+                return true;
+            }
+            return false;
+        });
         return "redirect:/cart";
     }
 
@@ -45,26 +55,33 @@ public class CartController {
                 .ifPresent(product -> {
                     Hibernate.initialize(product.getImagesUrls());
                     cart.put(product, cart.getOrDefault(product, 0) + count);
+
+                    this.fullPrice += product.getPrice() * count;
+                    this.productCount += count;
                 });
         return "redirect:/cart";
     }
 
-    private long getFullPrice() {
-        return cart.entrySet().stream()
-                .mapToLong(value -> value.getKey().getPrice() * value.getValue())
-                .sum();
+    @GetMapping(value = "/count", produces = "application/json")
+    public @ResponseBody
+    CartStatus getStatus() {
+        return this.createCartStatus();
     }
 
-    private long getProductCount() {
-        return cart.values().stream()
-                .mapToLong(Integer::longValue)
-                .sum();
+//    @GetMapping(value = "/add", produces = "application/json", consumes = "application/json")
+//    public @ResponseBody CartStatus addToCart(@RequestParam("id") long id, @RequestParam(value = "count", defaultValue = "1") int count) {
+//        this.add(id, count);
+//        return this.createCartStatus();
+//    }
+
+//    @GetMapping(value = "/add", produces = "application/json", consumes = "application/json")
+//    public @ResponseBody CartStatus addToCart(@RequestBody CartAddRequest cartAddRequest) {
+//        this.add(cartAddRequest.getId(), cartAddRequest.getCount());
+//        return this.createCartStatus();
+//    }
+
+    private CartStatus createCartStatus() {
+        return new CartStatus(this.fullPrice, this.productCount);
     }
 
-    public void setCartStat(Model model) {
-        if (!this.cart.isEmpty()) {
-            model.addAttribute("fullPrice", this.getFullPrice());
-            model.addAttribute("productCount", this.getProductCount());
-        }
-    }
 }
