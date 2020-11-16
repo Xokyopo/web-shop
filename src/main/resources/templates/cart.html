@@ -28,7 +28,9 @@
                                            th:text="${relatedProduct.name}">Sony Smart TV - 2015</a></h5>
                                     <div class="h6">
                                         <ins class="text-success" th:text="${relatedProduct.price}">$700.00</ins>
-                                        <del th:text="${relatedProduct.price * 1.13}">$800.00</del>
+                                        <del th:text="${#numbers.formatDecimal(relatedProduct.price * 1.13, 0, 2)}">
+                                            $800.00
+                                        </del>
                                     </div>
                                 </div>
                             </li>
