@@ -94,7 +94,7 @@
                 </div>
 
                 <div class="col-sm-6">
-                    <div class="shopping-item" id="shopping-item">
+                    <div class="shopping-item" id="shopping-item" th:if="${current != 'Cart'}">
                         <a href="cart.html" th:href="@{/cart}">
                             Cart - <span class="cart-amunt" id="fullPrice">нет</span>
                             <i class="fa fa-shopping-cart"></i>
@@ -251,8 +251,7 @@
         <div class="container">
             <div class="row justify-content-between">
                 <div class="copyright">
-                    <p>&copy; 2020 eElectronics. All Rights Reserved. Coded with<i class="fa fa-heart"></i> by <a
-                            class="nav-link d-inline-flex" href="http://wpexpand.com">WP Expand</a></p>
+                    <p>&copy; 2020 eElectronics. All Rights Reserved.</p>
                 </div>
 
                 <div class="footer-card-icon">
@@ -284,10 +283,6 @@
 
     <!--  My js extensions  -->
     <script th:src="@{/site_functions.js}" type="text/javascript"></script>
-
-    <script type="text/javascript">
-        <!--    my script    -->
-    </script>
 </footer>
 </body>
 
