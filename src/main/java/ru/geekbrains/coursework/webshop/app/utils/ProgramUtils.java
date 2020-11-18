@@ -27,4 +27,22 @@ public class ProgramUtils {
         }
         return String.format("%.2f %s", fileLength, prefixes[count]);
     }
+
+    public static <T> T exceptionReplacer(ExReturnedPod<T> function, RuntimeException replacedException) {
+        try {
+            return function.run();
+        } catch (Exception e) {
+            replacedException.addSuppressed(e);
+            throw replacedException;
+        }
+    }
+
+    public static void exceptionReplacer(ExCallbackPod function, RuntimeException replacedException) {
+        try {
+            function.run();
+        } catch (Exception e) {
+            replacedException.addSuppressed(e);
+            throw replacedException;
+        }
+    }
 }
