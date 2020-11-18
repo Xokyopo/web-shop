@@ -1,15 +1,19 @@
 package ru.geekbrains.coursework.webshop.app.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity(name = "products")
 public class Product extends AEntity {
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JsonManagedReference
     private Set<Category> categories;
     @ManyToOne
+    @JsonManagedReference
     private Brand brand;
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private Set<String> imagesUrls;
     private long price;
 
