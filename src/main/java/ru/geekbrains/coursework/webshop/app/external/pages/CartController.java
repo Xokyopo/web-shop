@@ -1,16 +1,17 @@
 package ru.geekbrains.coursework.webshop.app.external.pages;
 
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.annotation.SessionScope;
 import ru.geekbrains.coursework.webshop.app.domain.ProductService;
+import ru.geekbrains.coursework.webshop.app.domain.SaleService;
 import ru.geekbrains.coursework.webshop.app.domain.entities.Product;
 import ru.geekbrains.coursework.webshop.app.external.pages.represantations.CartStatus;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Controller
@@ -18,12 +19,14 @@ import java.util.stream.Collectors;
 @SessionScope
 public class CartController {
     private ProductService productService;
+    private SaleService saleService;
     private HashMap<Product, Integer> cart;
     private long fullPrice;
     private long productCount;
 
     @Autowired
-    public CartController(ProductService productService) {
+    public CartController(ProductService productService, SaleService saleService) {
+        this.saleService = saleService;
         this.cart = new HashMap<>();
         this.productService = productService;
     }
@@ -53,7 +56,6 @@ public class CartController {
     public String add(@RequestParam("id") long id, @RequestParam(value = "count", defaultValue = "1") int count) {
         this.productService.getById(id)
                 .ifPresent(product -> {
-                    Hibernate.initialize(product.getImagesUrls());
                     cart.put(product, cart.getOrDefault(product, 0) + count);
 
                     this.fullPrice += product.getPrice() * count;
@@ -62,23 +64,26 @@ public class CartController {
         return "redirect:/cart";
     }
 
-    @GetMapping(value = "/count", produces = "application/json")
+    @PostMapping("/buy")
+    public String buy(Model model) {
+        this.saleService.sale(this.cart);
+        Map<Product, Integer> buys = this.cart;
+        this.cart = new HashMap<>();
+        long fullPrice = buys.entrySet().stream()
+                .mapToLong(entry -> entry.getKey().getPrice() * entry.getValue())
+                .sum();
+
+        model.addAttribute("byes", buys.entrySet());
+        model.addAttribute("fullPrice", fullPrice);
+        // redirect to buysList
+        return "cheque";
+    }
+
+    @GetMapping(value = "/count")
     public @ResponseBody
     CartStatus getStatus() {
         return this.createCartStatus();
     }
-
-//    @GetMapping(value = "/add", produces = "application/json", consumes = "application/json")
-//    public @ResponseBody CartStatus addToCart(@RequestParam("id") long id, @RequestParam(value = "count", defaultValue = "1") int count) {
-//        this.add(id, count);
-//        return this.createCartStatus();
-//    }
-
-//    @GetMapping(value = "/add", produces = "application/json", consumes = "application/json")
-//    public @ResponseBody CartStatus addToCart(@RequestBody CartAddRequest cartAddRequest) {
-//        this.add(cartAddRequest.getId(), cartAddRequest.getCount());
-//        return this.createCartStatus();
-//    }
 
     private CartStatus createCartStatus() {
         return new CartStatus(this.fullPrice, this.productCount);
