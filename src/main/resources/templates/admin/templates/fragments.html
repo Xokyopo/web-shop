@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
->
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org">
 
 <head th:fragment="head(title)">
     <meta charset="utf-8">
@@ -39,20 +39,19 @@
         <!-- top menu area -->
         <nav class="navbar m-0 p-0 navbar-light bg-secondary">
             <div class="d-flex">
-                    <span class="nav-link text-light">
-                        <script language="javascript" type="text/javascript">
-                            var d = new Date();
-                            var day = new Array("Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота");
-                            var month = new Array("января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря");
-                            document.write(day[d.getDay()] + " " + d.getDate() + " " + month[d.getMonth()] + " " + d.getFullYear() + " г.");
-                        </script>
-                    </span>
+                <span class="nav-link text-light" id="currentDate"></span>
             </div>
             <ul class="nav">
                 <li class="nav-item ml-auto">
-                    <a class="nav-link text-light" href="#" th:href="@{/login}">
-                        <i aria-hidden="true" class="fa fa-user"></i> Login
+                    <a class="nav-link text-light" href="#" sec:authorize="!isAuthenticated()"
+                       th:href="@{/login}">
+                        <i class="fa fa-user"></i> Login
                     </a>
+                    <form method="post" sec:authorize="isAuthenticated()" th:action="@{/logout}">
+                        <button class="btn btn-link nav-link text-light" type="submit">
+                            <i class="fa fa-user"></i> Logout
+                        </button>
+                    </form>
                 </li>
             </ul>
         </nav>
@@ -164,11 +163,16 @@
 
     <!-- DataTable -->
     <script th:src="@{/datatable/datatables.js}"></script>
+
+    <!--  My js extensions  -->
+    <script th:src="@{/site_functions.js}" type="text/javascript"></script>
+
     <script type="text/javascript">
-        $(document).ready(function () {
+        $(document).ready(() => {
             $('#myTable').DataTable({
                 //    add plugin here
             });
+            $('#currentDate').text(getCurrentDate());
         });
     </script>
 </footer>
