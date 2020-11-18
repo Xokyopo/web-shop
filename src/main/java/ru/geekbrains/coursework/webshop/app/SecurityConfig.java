@@ -29,7 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        //TODO can't change the sequence
+        //can't change the sequence
         http
                 .authorizeRequests()
                 .antMatchers("/admin/**")
