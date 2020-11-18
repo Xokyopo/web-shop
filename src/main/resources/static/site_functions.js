@@ -1,8 +1,3 @@
-//update cart when load page
-
-$(document).ready(() => {
-    updateCartStatus();
-});
 
 function updateCartStatus() {
     cartStatusUpdater("/cart/count", {"#fullPrice": "fullPrice", "#productCount": "productCount"});
@@ -72,5 +67,13 @@ function sum(elementsScope) {
         result += parseFloat($(element).text());
     });
     return result;
+}
+
+function getCurrentDate() {
+    console.log('getCurrentDate');
+    let date = new Date();
+    let day = ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"];
+    let month = ["января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря"];
+    return day[date.getDay()] + " " + date.getDate() + " " + month[date.getMonth()] + " " + date.getFullYear() + " г.";
 }
 
