@@ -1,5 +1,7 @@
 package ru.geekbrains.coursework.webshop.app.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.PreRemove;
@@ -9,6 +11,7 @@ import java.util.Set;
 public class Brand extends AEntity {
     private String logoUrl;
     @OneToMany(mappedBy = "brand")
+    @JsonBackReference
     private Set<Product> products;
 
     public String getLogoUrl() {
