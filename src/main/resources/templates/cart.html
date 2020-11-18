@@ -125,7 +125,9 @@
                             </tr>
                             <tr>
                                 <td colspan="6">
-                                    <input class="btn btn-success w-100" name="proceed" type="submit" value="Buy"/>
+                                    <form action="#" method="post" th:action="@{/cart/buy}">
+                                        <button class="btn btn-success w-100" name="proceed" type="submit">Buy</button>
+                                    </form>
                                 </td>
                             </tr>
                             </tbody>
