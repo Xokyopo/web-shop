@@ -1,41 +1,76 @@
 //update cart when load page
 
-$(document).ready(updateCartStatus());
+$(document).ready(() => {
+    updateCartStatus();
+});
 
 function updateCartStatus() {
-    console.log("LOG!send json");
-    getData("/cart/count", null, {"#fullPrice": "fullPrice", "#productCount": "productCount"});
-    console.log("update status");
-    if ($('#productCount').text() === '0') {
-        $('#shopping-item').hide();
-    } else {
-        $('#shopping-item').show();
-    }
+    cartStatusUpdater("/cart/count", {"#fullPrice": "fullPrice", "#productCount": "productCount"});
 }
 
-function addToCart(id, count) {
-    getData("/cart/add", JSON.stringify({"id": id, "count": count}), {
-        "#fullPrice": "fullPrice",
-        "#productCount": "productCount"
+function cartStatusUpdater(targetUrl, updatedElements) {
+    $.getJSON(targetUrl, null, (in_data) => {
+        updateElements(updatedElements, in_data);
+        hideIf('#shopping-item', (elem) => (parseInt(elem.find('#productCount').text()) === 0));
     });
 }
 
-function getData(targetUrl, sendingData, updatedElements) {
-    $.getJSON(targetUrl, sendingData, (in_data) => updateElements(updatedElements, in_data));
+function hideIf(element, condition) {
+    let component = $(element);
+    if (condition(component)) {
+        console.log('hide element');
+        component.hide();
+    } else {
+        console.log('show element');
+        component.show();
+    }
 }
 
 function updateElements(updatedElements, elementsData) {
-    console.log("LOG!update element")
     for (let key in updatedElements) {
         $(key).text(elementsData[updatedElements[key]])
     }
-    console.log("LOG!update element finished")
 }
 
-function convertDataToJSON(targetData) {
-    let result = {};
-    for (let key in targetData) {
-        result[targetData[key]] = $(key).text();
-    }
-    return JSON.stringify(result);
+function initCalculate() {
+    $('.calculated').each((i, element) => {
+
+        let plus = $(element).find('.plus');
+        let minus = $(element).find('.minus');
+        let count = $(element).find('.count');
+        let basis = $(element).find('.basis');
+        let result = $(element).find('.result');
+
+        plus.click(() => btn_click((val) => val + 1));
+        minus.click(() => btn_click((val) => val - 1));
+
+        function btn_click(calc) {
+            count.val(calc(parseInt(count.val())));
+            if (parseInt(count.val()) < 1) count.val(1);
+            calculateResult();
+        }
+
+        function calculateResult() {
+            result.text(parseFloat(basis.text()) * parseInt(count.val()));
+            calcCurrentFP('#currentFP', '.result');
+        }
+
+        calculateResult();
+    });
 }
+
+function calcCurrentFP(resultName, elementsName) {
+    console.log('calcCurrentFP');
+    $(resultName).text(sum($(elementsName)));
+}
+
+function sum(elementsScope) {
+    console.log('sum');
+    let result = 0;
+    elementsScope.each((i, element) => {
+        console.log('sum.forEach');
+        result += parseFloat($(element).text());
+    });
+    return result;
+}
+
