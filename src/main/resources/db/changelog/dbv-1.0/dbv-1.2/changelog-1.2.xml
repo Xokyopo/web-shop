@@ -5,6 +5,7 @@
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
+        <include file="create-sales-entity.xml" relativeToChangelogFile="true"/>
     <!--    <include file="data-import-image.xml" relativeToChangelogFile="true"/>-->
 
 </databaseChangeLog>
