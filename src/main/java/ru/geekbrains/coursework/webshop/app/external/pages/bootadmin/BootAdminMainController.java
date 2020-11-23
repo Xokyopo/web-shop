@@ -10,6 +10,6 @@ public class BootAdminMainController {
 
     @GetMapping
     public String showMainPage() {
-        return "/admin/greeting";
+        return "admin/greeting";
     }
 }

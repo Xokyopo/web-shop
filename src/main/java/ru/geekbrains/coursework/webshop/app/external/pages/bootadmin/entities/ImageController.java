@@ -48,7 +48,7 @@ public class ImageController extends AController<Image, ImageService> {
     @PostMapping("/save")
     public String save(Image entity, @RequestParam("uploadList") List<MultipartFile> multipartFiles) {
         this.getService().save(entity, multipartFiles);
-        return "redirect:" + this.getRootPath() + "/showAll";
+        return "redirect:/" + this.getRootPath() + "/showAll";
     }
 
     @Override

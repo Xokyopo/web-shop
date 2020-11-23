@@ -14,8 +14,10 @@ public class ProgramUtils {
         return (result.isEmpty()) ? Optional.empty() : Optional.of(result);
     }
 
-    public static String addSlashOnStartAndRemoveOnEnd(String left) {
-        return (left.startsWith("/") ? "" : "/") + left.substring(0, left.endsWith("/") ? left.length() - 1 : left.length());
+    public static String removeSlashOnStartAndEnd(String text) {
+        return (text.substring(
+                text.startsWith("/") ? 1 : 0,
+                text.endsWith("/") ? text.length() - 1 : text.length()));
     }
 
     public String convertToHumanFileLength(float fileLength) {

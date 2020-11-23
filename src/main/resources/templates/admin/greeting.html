@@ -2,17 +2,17 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="/admin/templates/fragments :: head(title='template')">
+<head th:replace="admin/templates/fragments :: head(title='template')">
 </head>
 
 <body>
 <div class="d-flex overflow-hidden vh-100 flex-column">
-    <header class="top-menu" th:replace="/admin/templates/fragments :: header">
+    <header class="top-menu" th:replace="admin/templates/fragments :: header">
     </header>
 
     <main class="d-flex h-100">
 
-        <div class="left-menu bg-success" th:replace="/admin/templates/fragments :: leftMenu">
+        <div class="left-menu bg-success" th:replace="admin/templates/fragments :: leftMenu">
         </div>
 
         <div class="overflow-auto p-3 flex-grow-1">
@@ -36,7 +36,7 @@
 </div>
 
 
-<footer th:replace="/admin/templates/fragments ::footer">
+<footer th:replace="admin/templates/fragments ::footer">
 </footer>
 </body>
 

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org">
-<head th:insert="/templates/fragments :: head(title='eElectronics - HTML eCommerce Template')">
+<head th:insert="templates/fragments :: head(title='eElectronics - HTML eCommerce Template')">
 </head>
 <body>
-<div th:replace="/templates/fragments :: header(current='Cart')"></div>
+<div th:replace="templates/fragments :: header(current='Cart')"></div>
 
-<div th:replace="/templates/fragments :: titleArea(text='Cart')"></div>
+<div th:replace="templates/fragments :: titleArea(text='Cart')"></div>
 
 <div class="row">
     <div class="col">
@@ -142,7 +142,7 @@
     </div>
 </div>
 
-<div th:replace="/templates/fragments :: footer"></div>
+<div th:replace="templates/fragments :: footer"></div>
 <!-- init cat -->
 <script type="text/javascript">
     $(document).ready(() => {

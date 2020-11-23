@@ -20,7 +20,7 @@ public abstract class AController<E, R extends AService<E, ? extends ARepository
     @Autowired
     public void init(R service) {
         rootPath = ProgramUtils.getRequestMappingValue(this).stream()
-                .map(ProgramUtils::addSlashOnStartAndRemoveOnEnd)
+                .map(ProgramUtils::removeSlashOnStartAndEnd)
                 .findFirst()
                 .orElse("");
         this.service = service;
@@ -44,13 +44,13 @@ public abstract class AController<E, R extends AService<E, ? extends ARepository
     @PostMapping("/del/{id}")
     public String delete(@PathVariable("id") Long id) {
         this.service.delete(id);
-        return "redirect:" + this.rootPath + "/showAll";
+        return "redirect:/" + this.rootPath + "/showAll";
     }
 
     @PostMapping("/save")
     public String save(E entity) {
         this.service.save(entity);
-        return "redirect:" + this.rootPath + "/showAll";
+        return "redirect:/" + this.rootPath + "/showAll";
     }
 
     public R getService() {
