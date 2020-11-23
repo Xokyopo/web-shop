@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/bootadmin/entities/image")
+@RequestMapping("/admin/entities/image")
 public class ImageController extends AController<Image, ImageService> {
 
     @Override
@@ -33,7 +33,6 @@ public class ImageController extends AController<Image, ImageService> {
 
     @GetMapping("/get/{id}")
     public ResponseEntity<byte[]> getAsResource(@PathVariable("id") Long id) {
-        this.getLogger().ifPresent((myLogger) -> myLogger.debug("run method name {public ResponseEntity<byte[]> getAsResource(@PathVariable('id') Long id)} where id is [" + id + "]"));
         Optional<Image> optionalImage = this.getService().getById(id);
 
         if (optionalImage.isPresent()) {
@@ -48,11 +47,8 @@ public class ImageController extends AController<Image, ImageService> {
 
     @PostMapping("/save")
     public String save(Image entity, @RequestParam("uploadList") List<MultipartFile> multipartFiles) {
-        this.getLogger().ifPresent((myLogger) -> myLogger.debug("run public String save(Image entity, " +
-                "ArrayList<MultipartFile> multipartFiles) where entity is [" + entity + "] " +
-                "and multipartFiles have [" + multipartFiles.size() + "] elements"));
         this.getService().save(entity, multipartFiles);
-        return "redirect:" + this.getRootPath() + "/showAll";
+        return "redirect:/" + this.getRootPath() + "/showAll";
     }
 
     @Override

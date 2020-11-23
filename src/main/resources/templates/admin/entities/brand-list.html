@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="admin/templates/fragments :: head(title='template')">
+</head>
+
+<body>
+<div class="d-flex overflow-hidden vh-100 flex-column">
+    <header class="top-menu" th:replace="admin/templates/fragments :: header">
+    </header>
+
+    <main class="d-flex h-100">
+
+        <div class="left-menu bg-success" th:replace="admin/templates/fragments :: leftMenu">
+        </div>
+
+        <div class="overflow-auto p-3 flex-grow-1">
+            <div class="p-3">
+
+                <!-- content area start -->
+
+                <div th:with="rootDir='/admin/entities/brand'">
+                    <div class="row justify-content-center" style="margin: 10px">
+                        <a class="btn btn-success" th:href="@{${rootDir} + '/show/0'}" type="button">add</a>
+                    </div>
+
+                    <table class="table table-striped" id="myTable">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">id</th>
+                            <th scope="col">logo</th>
+                            <th scope="col">name</th>
+                            <th scope="col">products count</th>
+                            <th scope="col">actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="brand : ${brands}" th:with="entityID=${brand.id}">
+                            <th scope="row" th:text="${brand.id}">id</th>
+                            <th scope="row">
+                                <img class="img-thumbnail" style="max-height: 64px" th:if="${brand.logoUrl}"
+                                     th:src="${brand.logoUrl}"/>
+                                <span th:if="!${brand.logoUrl}">not logo</span>
+                            </th>
+                            <td th:text="${brand.name}">brand name</td>
+                            <td th:text="${brand.products.size()}">brands product</td>
+                            <td class="row">
+                                <!-- поменять потом скоуп на другой так как он делает буквы жирными.-->
+                                <a class="btn btn-warning  mr-2"
+                                   th:href="@{${rootDir} + '/show/{id}'(id = ${entityID})}"
+                                   type="button">edit</a>
+                                <form action="#" method="post"
+                                      th:action="@{${rootDir} + '/del/{id}'(id = ${entityID})}">
+                                    <button class="btn btn-danger" type="submit">del</button>
+                                </form>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- content area end-->
+
+            </div>
+        </div>
+    </main>
+
+</div>
+
+
+<footer th:replace="admin/templates/fragments ::footer">
+</footer>
+</body>
+
+</html>

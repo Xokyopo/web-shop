@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="admin/templates/fragments :: head(title='template')">
+</head>
+
+<body>
+<div class="d-flex overflow-hidden vh-100 flex-column">
+    <header class="top-menu" th:replace="admin/templates/fragments :: header">
+    </header>
+
+    <main class="d-flex h-100">
+
+        <div class="left-menu bg-success" th:replace="admin/templates/fragments :: leftMenu">
+        </div>
+
+        <div class="overflow-auto p-3 flex-grow-1">
+            <div class="p-3">
+
+                <!-- content area start -->
+
+                <div th:with="rootDir='/admin/entities/image'">
+
+                    <div class="row justify-content-center">
+                        <a class="btn btn-primary" style="margin-top: 50px" th:href="@{${rootDir}  + '/showAll'}"
+                           type="button">Cancel</a>
+                    </div>
+
+                    <!--      image preview          -->
+                    <div class="card mb-5" style="width: 18rem; height: 29rem" th:if="${image.id != 0}">
+                        <img alt="..." class="card-img-top" th:src="@{${rootDir}  + '/get/{id}'(id = ${image.id})}"/>
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${image.name}">Card title</h5>
+                            <p class="card-text">
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" for="path">Path:</span>
+                                </div>
+                                <label class="form-control" id="path" th:text="${image.path}"></label>
+                            </div>
+
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" for="size">Size:</span>
+                                </div>
+                                <label class="form-control" id="size"
+                                       th:text="${programUtils.convertToHumanFileLength(image.size)}"></label>
+                            </div>
+
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" for="type">Media Type:</span>
+                                </div>
+                                <label class="form-control" id="type" th:text="${image.type}"></label>
+                            </div>
+
+                            </p>
+                            <!--                        <a href="#" class="btn btn-primary">load  new</a>-->
+                        </div>
+                    </div>
+
+                    <!--      image new loader      -->
+                    <form action="#" enctype="multipart/form-data" method="post" th:action="@{${rootDir} + '/save'}">
+
+                        <input th:field="${image.id}" type="hidden">
+                        <input th:field="${image.name}" type="hidden">
+                        <input th:field="${image.path}" type="hidden">
+                        <input th:field="${image.type}" type="hidden">
+                        <input th:field="${image.size}" type="hidden">
+                        <input th:field="${image.data}" type="hidden">
+
+                        <input name="uploadList" th:multiple="${image.id == 0}" type="file">
+
+                        <div class="row justify-content-end" style="margin: 0 5px">
+                            <button class="btn btn-success" type="submit">Save</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- content area end-->
+
+            </div>
+        </div>
+    </main>
+
+</div>
+
+
+<footer th:replace="admin/templates/fragments ::footer">
+</footer>
+</body>
+
+</html>

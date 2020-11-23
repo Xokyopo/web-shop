@@ -6,6 +6,6 @@ import ru.geekbrains.coursework.webshop.app.domain.BrandService;
 import ru.geekbrains.coursework.webshop.app.domain.entities.Brand;
 
 @Controller
-@RequestMapping("/bootadmin/entities/brand")
+@RequestMapping("/admin/entities/brand")
 public class BrandController extends AController<Brand, BrandService> {
 }

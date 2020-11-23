@@ -12,7 +12,7 @@ import ru.geekbrains.coursework.webshop.app.domain.ProductService;
 import ru.geekbrains.coursework.webshop.app.domain.entities.Product;
 
 @Controller
-@RequestMapping("/bootadmin/entities/product")
+@RequestMapping("/admin/entities/product")
 public class ProductController extends AController<Product, ProductService> {
     private CategoryService categoryService;
     private BrandService brandService;

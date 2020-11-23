@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:insert="templates/fragments :: head(title='eElectronics - HTML eCommerce')">
+</head>
+<body>
+<div th:replace="templates/fragments :: header(current='Cheque')"></div>
+
+<div th:replace="templates/fragments :: titleArea(text='Cheque')"></div>
+
+<div class="row">
+    <div class="col">
+        <!-- for you content start -->
+        <div class="container">
+            <table class="table table-bordered">
+                <thead class="thead-light">
+                <tr>
+                    <th scope="col">&nbsp;</th>
+                    <th scope="col">Product</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Total</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="calculated" th:each="productEntry : ${byes}">
+                    <td class="text-center align-middle">
+                        <a href="single-product.html"
+                           th:href="@{/product/{id}(id = ${productEntry.getKey().id})}">
+                            <img alt="poster_1_up" class="img-5r" src="img/product-thumb-2.jpg"
+                                 th:src="${productEntry.getKey().imagesUrls?.stream().findAny().get()}">
+                        </a>
+                    </td>
+
+                    <td class="text-center align-middle">
+                        <a class="nav-link product" href="single-product.html"
+                           th:href="@{/product/{id}(id = ${productEntry.getKey().id})}"
+                           th:text="${productEntry.getKey().name}">Ship Your Idea</a>
+                    </td>
+
+                    <td class="text-center align-middle">
+                        <span th:text="${productEntry.getKey().price}">15.00</span>
+                    </td>
+
+                    <td class="text-center align-middle">
+                        <span th:text="${productEntry.getValue()}">15.00</span>
+                    </td>
+
+                    <td class="text-center align-middle">
+                        <span th:text="${productEntry.getValue() * productEntry.getKey().price}">15.00</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="align-middle" colspan="4">
+                        <span>Full price:</span>
+                    </td>
+                    <td class="text-center align-middle">
+                        <span th:text="${fullPrice}">0</span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- for you content end -->
+    </div>
+</div>
+
+<div th:replace="templates/fragments :: footer"></div>
+</body>
+</html>

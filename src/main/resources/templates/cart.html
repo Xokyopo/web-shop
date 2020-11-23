@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org">
-<head th:insert="/templates/fragments :: head(title='eElectronics - HTML eCommerce Template')">
+<head th:insert="templates/fragments :: head(title='eElectronics - HTML eCommerce Template')">
 </head>
 <body>
-<div th:replace="/templates/fragments :: header(current='Cart')"></div>
+<div th:replace="templates/fragments :: header(current='Cart')"></div>
 
-<div th:replace="/templates/fragments :: titleArea(text='Cart')"></div>
+<div th:replace="templates/fragments :: titleArea(text='Cart')"></div>
 
 <div class="row">
     <div class="col">
@@ -28,7 +28,9 @@
                                            th:text="${relatedProduct.name}">Sony Smart TV - 2015</a></h5>
                                     <div class="h6">
                                         <ins class="text-success" th:text="${relatedProduct.price}">$700.00</ins>
-                                        <del th:text="${relatedProduct.price * 1.13}">$800.00</del>
+                                        <del th:text="${#numbers.formatDecimal(relatedProduct.price * 1.13, 0, 2)}">
+                                            $800.00
+                                        </del>
                                     </div>
                                 </div>
                             </li>
@@ -72,7 +74,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="productEntry : ${cart}">
+                            <tr class="calculated" th:each="productEntry : ${cart}">
                                 <td class="text-center align-middle" scope="row">
                                     <form action="#" method="post"
                                           th:action="@{/cart/del/{id}(id = ${productEntry.getKey().id})}">
@@ -97,35 +99,35 @@
                                 </td>
 
                                 <td class="text-center align-middle">
-                                    <span th:text="${productEntry.getKey().price}">£15.00</span>
+                                    <span class="basis" th:text="${productEntry.getKey().price}">15.00</span>
                                 </td>
 
                                 <td class="text-center align-middle">
                                     <!-- размеры для мелких кнопок -->
-                                    <input class="btn btn-success sign" type="button" value="-"/>
-                                    <input class="input-text text-right border border-success" min="0" size="4" step="1"
-                                           style="width:4rem;" th:value="${productEntry.getValue().intValue()}"
+                                    <input class="minus btn btn-success sign" type="button" value="-"/>
+                                    <input class="count input-text text-right border border-success"
+                                           style="width:4rem;" th:value="${productEntry.getValue()}"
                                            title="Qty" type="number" value="1"/>
-                                    <input class="btn btn-success sign" type="button" value="+"/>
+                                    <input class="plus btn btn-success sign plus" type="button" value="+"/>
                                 </td>
 
                                 <td class="text-center align-middle">
-                                    <span th:text="${productEntry.getValue().intValue() * productEntry.getKey().price}">£15.00</span>
+                                    <span class="result">15.00</span>
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="6" style="margin-bottom: -2px;">
-                                    <div class="form-inline float-left mb-2">
-                                        <label id="basic-addon1">Coupon:</label>
-                                        <input aria-describedby="basic-addon1" aria-label="Username"
-                                               class="form-control" placeholder="Coupon code" type="text">
-                                    </div>
-                                    <input class="btn btn-success mb-2 mx-1" name="apply_coupon" type="submit"
-                                           value="Apply Coupon"/>
-                                    <input class="btn btn-success mb-2 mx-1" name="update_cart" type="submit"
-                                           value="Update Cart"/>
-                                    <input class="btn btn-success mb-2 mx-1" name="proceed" type="submit"
-                                           value="Proceed to Checkout"/>
+                                <td class="align-middle" colspan="5">
+                                    <span>Current full price:</span>
+                                </td>
+                                <td class="text-center align-middle">
+                                    <span id="currentFP">0</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="6">
+                                    <form action="#" method="post" th:action="@{/cart/buy}">
+                                        <button class="btn btn-success w-100" name="proceed" type="submit">Buy</button>
+                                    </form>
                                 </td>
                             </tr>
                             </tbody>
@@ -140,6 +142,12 @@
     </div>
 </div>
 
-<div th:replace="/templates/fragments :: footer"></div>
+<div th:replace="templates/fragments :: footer"></div>
+<!-- init cat -->
+<script type="text/javascript">
+    $(document).ready(() => {
+        initCalculate();
+    });
+</script>
 </body>
 </html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:insert="templates/fragments :: head(title='eElectronics - HTML eCommerce Template')">
+</head>
+<body>
+<div th:replace="templates/fragments :: header(current='Template')"></div>
+
+<div th:replace="templates/fragments :: titleArea(text='Template')"></div>
+
+<div class="row">
+    <div class="col">
+        <!-- for you content start -->
+
+        <div th:fragment="chat">
+            <!-- Chat form start -->
+            <div class="chat" id="chat" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form id="chat_form">
+                            <div class="modal-header justify-content-center">
+                                <h5 class="modal-title">Chat</h5>
+                            </div>
+                            <div class="modal-body">
+                                <textarea class="form-control mb-2 bg-white" cols="10" disabled id="message_log"
+                                          rows="10"></textarea>
+                                <input class="form-control border border-success" id="message" type="text"/>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary" data-dismiss="modal" type="button">Close</button>
+                                <button class="btn btn-success" id="send" type="submit">Send</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- Chat form end -->
+
+            <!-- Chat button end -->
+            <button class="btn btn-success rounded-circle chat-btn" data-target="#chat" data-toggle="modal"
+                    type="button">
+                <i aria-hidden="true" class="fa fa-comments"></i>
+            </button>
+            <!-- Chat button end -->
+
+            <!--  STOMP Chat  -->
+            <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+            <script th:src="@{/webjars/sockjs-client/sockjs.min.js}"></script>
+            <script th:src="@{/webjars/stomp-websocket/stomp.min.js}"></script>
+            <script th:src="@{/chat_engine.js}"></script>
+
+        </div>
+        <!-- for you content end -->
+    </div>
+</div>
+
+<div th:replace="templates/fragments :: footer"></div>
+</body>
+</html>

@@ -1,15 +1,17 @@
 package ru.geekbrains.coursework.webshop.app.external.pages;
 
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.annotation.SessionScope;
 import ru.geekbrains.coursework.webshop.app.domain.ProductService;
+import ru.geekbrains.coursework.webshop.app.domain.SaleService;
 import ru.geekbrains.coursework.webshop.app.domain.entities.Product;
+import ru.geekbrains.coursework.webshop.app.external.pages.represantations.CartStatus;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Controller
@@ -17,10 +19,14 @@ import java.util.stream.Collectors;
 @SessionScope
 public class CartController {
     private ProductService productService;
+    private SaleService saleService;
     private HashMap<Product, Integer> cart;
+    private long fullPrice;
+    private long productCount;
 
     @Autowired
-    public CartController(ProductService productService) {
+    public CartController(ProductService productService, SaleService saleService) {
+        this.saleService = saleService;
         this.cart = new HashMap<>();
         this.productService = productService;
     }
@@ -28,14 +34,21 @@ public class CartController {
     @GetMapping
     public String show(Model model) {
         model.addAttribute("cart", this.cart.entrySet());
-        this.setCartStat(model);
         model.addAttribute("relatedProducts", this.productService.getAll().parallelStream().limit(6).collect(Collectors.toList()));
         return "cart";
     }
 
     @PostMapping("/del/{id}")
     public String del(@PathVariable("id") long id) {
-        this.cart.entrySet().removeIf(productIntegerEntry -> productIntegerEntry.getKey().getId() == id);
+        this.cart.entrySet().removeIf(productIntegerEntry -> {
+            if (productIntegerEntry.getKey().getId() == id) {
+
+                this.productCount -= productIntegerEntry.getValue();
+                this.fullPrice -= productIntegerEntry.getKey().getPrice() * productIntegerEntry.getValue();
+                return true;
+            }
+            return false;
+        });
         return "redirect:/cart";
     }
 
@@ -43,28 +56,37 @@ public class CartController {
     public String add(@RequestParam("id") long id, @RequestParam(value = "count", defaultValue = "1") int count) {
         this.productService.getById(id)
                 .ifPresent(product -> {
-                    Hibernate.initialize(product.getImagesUrls());
                     cart.put(product, cart.getOrDefault(product, 0) + count);
+
+                    this.fullPrice += product.getPrice() * count;
+                    this.productCount += count;
                 });
         return "redirect:/cart";
     }
 
-    private long getFullPrice() {
-        return cart.entrySet().stream()
-                .mapToLong(value -> value.getKey().getPrice() * value.getValue())
+    @PostMapping("/buy")
+    public String buy(Model model) {
+        this.saleService.sale(this.cart);
+        Map<Product, Integer> buys = this.cart;
+        this.cart = new HashMap<>();
+        long fullPrice = buys.entrySet().stream()
+                .mapToLong(entry -> entry.getKey().getPrice() * entry.getValue())
                 .sum();
+
+        model.addAttribute("byes", buys.entrySet());
+        model.addAttribute("fullPrice", fullPrice);
+        // redirect to buysList
+        return "cheque";
     }
 
-    private long getProductCount() {
-        return cart.values().stream()
-                .mapToLong(Integer::longValue)
-                .sum();
+    @GetMapping(value = "/count")
+    public @ResponseBody
+    CartStatus getStatus() {
+        return this.createCartStatus();
     }
 
-    public void setCartStat(Model model) {
-        if (!this.cart.isEmpty()) {
-            model.addAttribute("fullPrice", this.getFullPrice());
-            model.addAttribute("productCount", this.getProductCount());
-        }
+    private CartStatus createCartStatus() {
+        return new CartStatus(this.fullPrice, this.productCount);
     }
+
 }

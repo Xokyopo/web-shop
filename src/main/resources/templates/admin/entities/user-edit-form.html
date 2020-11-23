@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="admin/templates/fragments :: head(title='template')">
+</head>
+
+<body>
+<div class="d-flex overflow-hidden vh-100 flex-column">
+    <header class="top-menu" th:replace="admin/templates/fragments :: header">
+    </header>
+
+    <main class="d-flex h-100">
+
+        <div class="left-menu bg-success" th:replace="admin/templates/fragments :: leftMenu">
+        </div>
+
+        <div class="overflow-auto p-3 flex-grow-1">
+            <div class="p-3">
+
+                <!-- content area start -->
+
+                <div th:with="rootDir='/admin/entities/user'">
+
+                    <div class="row justify-content-center">
+                        <a class="btn btn-primary" style="margin-top: 50px" th:href="@{${rootDir} + '/showAll'}"
+                           type="button">Cancel</a>
+                    </div>
+
+                    <form action="#" method="post" th:action="@{${rootDir} + '/save'}" th:object="${user}">
+                        <input id="id" th:field="*{id}" type="hidden"/>
+
+                        <div class="form-group">
+                            <label for="name">name</label>
+                            <input class="form-control" id="name" placeholder="enter name" th:field="*{name}"
+                                   type="text"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">password</label>
+                            <input class="form-control" id="password" placeholder="enter password"
+                                   th:field="*{password}"
+                                   type="text"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Roles:</label>
+                            <div class="form-check form-check-inline" th:each="role : ${allRoles}">
+                                <input th:field="*{roles}" th:text="${role.name}" th:value="${role.id}"
+                                       type="checkbox"/>
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-end" style="margin: 0 5px">
+                            <button class="btn btn-success" type="submit">Save</button>
+                        </div>
+                    </form>
+
+                </div>
+
+                <!-- content area end-->
+
+            </div>
+        </div>
+    </main>
+
+</div>
+
+
+<footer th:replace="admin/templates/fragments ::footer">
+</footer>
+</body>
+
+</html>

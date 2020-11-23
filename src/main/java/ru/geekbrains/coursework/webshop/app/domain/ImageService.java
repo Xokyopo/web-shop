@@ -12,8 +12,6 @@ import java.util.stream.Collectors;
 public class ImageService extends AService<Image, ImageRepository> {
 
     public void save(Image entity, List<MultipartFile> multipartFiles) {
-        this.getLogger().ifPresent((myLogger) -> myLogger.debug("run public void save(Image entity, List<MultipartFile> " +
-                "multipartFiles) entity is [" + entity + "] and multipartFiles have [" + multipartFiles.size() + "] elements\""));
         this.requireNotNull(entity, "Entity Cant be NULL");
 
         if (entity.getId() == 0 && !multipartFiles.isEmpty()) {

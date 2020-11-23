@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:insert="templates/fragments :: head(title='eElectronics : Registration')">
+</head>
+<body>
+
+<div class="d-flex overflow-hidden vh-100 flex-column">
+    <div class="m-auto border border-success" style="width: 40rem;">
+        <form method="POST" th:action="@{/registration}">
+            <div class="modal-header justify-content-center">
+                <h5 class="modal-title">Registration</h5>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row mb-4">
+                    <label class="col-sm-3 col-form-label" for="login_field">Login</label>
+                    <div class="col-sm-9">
+                        <input class="form-control border border-success is-valid" id="login_field"
+                               name="login" type="text"/>
+                        <div class="valid-feedback">Looks good!</div>
+                    </div>
+                </div>
+                <div class="form-group row mb-4">
+                    <label class="col-sm-3 col-form-label" for="password_field">Password</label>
+                    <div class="col-sm-9">
+                        <input class="form-control border border-success is-valid" id="password_field"
+                               name="password" type="Password"/>
+                        <div class="valid-feedback">Looks good!</div>
+                    </div>
+                </div>
+                <div class="form-group row mb-4">
+                    <label class="col-sm-3 col-form-label" for="re_password_field">Re:Password</label>
+                    <div class="col-sm-9">
+                        <input class="form-control border border-success is-invalid"
+                               id="re_password_field" name="re_password" type="Password"/>
+                        <div class="invalid-feedback">Looks good!</div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="history.back();" type="button">Back</button>
+                <button class="btn btn-success" type="submit">Register</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!--only scripts-->
+<footer th:replace="admin/templates/fragments ::footer"></footer>
+</body>
+</html>

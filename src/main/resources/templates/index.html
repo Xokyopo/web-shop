@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org">
-<head th:insert="/templates/fragments :: head(title='eElectronics - HTML eCommerce Template')">
+<head th:insert="templates/fragments :: head(title='eElectronics - HTML eCommerce Template')">
 </head>
 <body>
-<div th:replace="/templates/fragments :: header(current='Home')"></div>
+<div th:replace="templates/fragments :: header(current='Home')"></div>
 
 <div class="row">
     <div class="col">
@@ -22,7 +22,7 @@
 
                     <div class="carousel-item active">
                         <div class="overflow-hidden w-100" style="height: 40rem;">
-                            <img alt="..." class="d-block w-100" src="img/slide-1.jpg"
+                            <img alt="..." class="d-block w-100 img-filter" src="img/slide-1.jpg"
                                  th:src="@{/site/img/slide-1.jpg}">
                         </div>
                         <div class="carousel-caption container h-100 d-flex justify-content-end align-items-center">
@@ -39,7 +39,7 @@
 
                     <div class="carousel-item">
                         <div class="overflow-hidden w-100" style="height: 40rem;">
-                            <img alt="..." class="d-block w-100" src="img/slide-2.jpg"
+                            <img alt="..." class="d-block w-100 img-filter" src="img/slide-2.jpg"
                                  th:src="@{/site/img/slide-2.jpg}">
                         </div>
                         <div class="carousel-caption container h-100 d-flex justify-content-end align-items-center">
@@ -57,7 +57,7 @@
 
                     <div class="carousel-item">
                         <div class="overflow-hidden w-100" style="height: 40rem;">
-                            <img alt="..." class="d-block w-100" src="img/slide-3.jpg"
+                            <img alt="..." class="d-block w-100  img-filter" src="img/slide-3.jpg"
                                  th:src="@{/site/img/slide-3.jpg}">
                         </div>
                         <div class="carousel-caption container h-100 d-flex justify-content-end align-items-center">
@@ -427,6 +427,6 @@
     </div>
 </div>
 
-<div th:replace="/templates/fragments :: footer"></div>
+<div th:replace="templates/fragments :: footer"></div>
 </body>
 </html>

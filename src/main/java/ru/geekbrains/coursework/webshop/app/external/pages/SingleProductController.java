@@ -24,7 +24,6 @@ public class SingleProductController {
     public String showSingleProduct(Model model, @PathVariable("id") long id) {
         if (id == 0) throw new IllegalArgumentException(
                 "id in {public String showSingleProduct(Model model, @PathVariable(\"id\") long id)} can be 0");
-        this.cartController.setCartStat(model);
         model.addAttribute("product", this.productService.getById(id).orElseThrow(IllegalArgumentException::new));
         model.addAttribute("relatedProducts", this.productService.getAll().parallelStream().limit(6).collect(Collectors.toList()));
 

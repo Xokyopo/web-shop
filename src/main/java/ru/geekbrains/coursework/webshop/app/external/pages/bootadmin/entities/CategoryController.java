@@ -6,6 +6,6 @@ import ru.geekbrains.coursework.webshop.app.domain.CategoryService;
 import ru.geekbrains.coursework.webshop.app.domain.entities.Category;
 
 @Controller
-@RequestMapping("/bootadmin/entities/category")
+@RequestMapping("/admin/entities/category")
 public class CategoryController extends AController<Category, CategoryService> {
 }

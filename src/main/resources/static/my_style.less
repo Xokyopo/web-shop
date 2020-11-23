@@ -17,23 +17,64 @@ body {
   font-family: 'Titillium Web', sans-serif;
 }
 
+.col {
+  margin: 0;
+  padding: 0;
+}
+
+.row {
+  padding: 0;
+  margin: 0;
+}
+
 a {
   &.text-success {
     &:focus, &:hover {
       color: #17a78b !important;
     }
   }
+
+  &.text-light {
+    &:hover, &:focus {
+      color: #1abc9c !important;
+    }
+  }
 }
 
-.btn-success {
-  color: #fff !important;
-  background: none repeat scroll 0 0 #1abc9c !important;
+.valid-feedback, .invalid-feedback {
+  margin-bottom: -1.25rem;
+}
+
+.is-invalid {
+  border-color: #dc3545 !important;
+}
+
+.is-valid {
+  border-color: #17a2b8 !important;
+}
+
+.btn {
   border: medium none;
   border-radius: 0;
-  text-transform: uppercase;
 
-  &:focus, &:hover, &.active {
-    background-color: #222 !important;
+  &-success {
+    color: #fff !important;
+    background: none repeat scroll 0 0 #1abc9c !important;
+    text-transform: uppercase;
+
+    &:focus, &:hover, &.active {
+      background-color: #222 !important;
+      border: none;
+      box-shadow: none;
+    }
+  }
+
+  &-secondary {
+    &:focus, &:hover, &.active {
+      background-color: #222 !important;
+      border: none;
+      box-shadow: none;
+    }
   }
 }
 
@@ -308,9 +349,10 @@ footer {
 /* zigzag component start */
 // new component
 .zigzag {
-  width: 108%;
+  width: 120%;
   height: 120px;
   position: relative;
+  margin: 0 -5rem;
 
   &-bottom-lr {
     bottom: -60px;
@@ -377,7 +419,7 @@ footer {
 .card {
   flex-flow: column nowrap;
   align-items: flex-end;
-  width: 16.5rem;
+  width: 15.5rem;
   height: 26rem;
   line-height: 0;
 
@@ -441,6 +483,109 @@ footer {
     width: 30rem;
     background: rgba(0, 0, 0, 0.5);
   }
+
+  .img-filter {
+    filter: grayscale(70%);
+  }
 }
 
 //  for main page end
+
+//for admin panel start
+.left-menu {
+  max-width: 20rem;
+  min-width: fit-content;
+
+  .nav-link {
+    user-select: none;
+  }
+
+  &:not(:hover) {
+    .nav-link {
+      span {
+        transition: all .5s;
+        font-size: 0;
+      }
+    }
+
+    .dropdown {
+      .navbar-nav {
+        a {
+          transition: all .5s;
+          font-size: 0;
+          padding: 0 !important;
+        }
+      }
+
+      .dropdown-toggle::after {
+        content: none;
+      }
+    }
+  }
+
+  &:hover {
+    .nav-link {
+      .fa {
+        margin-right: .25rem;
+      }
+
+      span {
+        transition: all .5s;
+      }
+    }
+
+    .dropdown {
+      .dropdown-toggle::after {
+        content: "";
+      }
+
+      .drop-check {
+        &:not(:checked) {
+          & ~ .navbar-nav {
+            a {
+              transition: all .5s;
+              font-size: 0;
+              padding: 0 !important;
+            }
+          }
+        }
+
+        &:checked {
+          & ~ .dropdown-toggle::after {
+            border-bottom: .3em solid;
+            border-top: 0;
+          }
+
+          & ~ .navbar-nav {
+            a {
+              transition: all .5s;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+//for admin panel end
+
+//for chat start
+.chat {
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  width: 25rem;
+  z-index: 1050;
+  display: none;
+  overflow: hidden;
+  outline: 0;
+}
+
+.chat-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color: #2a6496 !important;
+}
+
+//for chat end

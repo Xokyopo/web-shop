@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org">
-<head th:insert="/templates/fragments :: head(title='eElectronics - HTML eCommerce Template')">
+<head th:insert="templates/fragments :: head(title='eElectronics - HTML eCommerce Template')">
 </head>
 <body>
-<div th:replace="/templates/fragments :: header(current='Shop')"></div>
+<div th:replace="templates/fragments :: header(current='Shop')"></div>
 
-<div th:replace="/templates/fragments :: titleArea(text='Shop')"></div>
+<div th:replace="templates/fragments :: titleArea(text='Shop')"></div>
 
 <div class="row">
     <div class="col">
@@ -28,7 +28,9 @@
                         </h5>
                         <div>
                             <ins class="text-success h6 font-weight-bolder" th:text="${product.price}">$899.00</ins>
-                            <del class="ml-2 h6" th:text="${product.price * 1.13}">$999.00</del>
+                            <del class="ml-2 h6" th:text="${#numbers.formatDecimal(product.price * 1.13, 0, 2)}">
+                                $999.00
+                            </del>
                         </div>
                         <div>
                             <form action="#" method="post" th:action="@{/shop/addToCart}">
@@ -77,6 +79,6 @@
     </div>
 </div>
 
-<div th:replace="/templates/fragments :: footer"></div>
+<div th:replace="templates/fragments :: footer"></div>
 </body>
 </html>
