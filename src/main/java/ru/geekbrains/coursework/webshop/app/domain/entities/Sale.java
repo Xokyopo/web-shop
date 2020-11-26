@@ -11,6 +11,7 @@ public class Sale {
     private long count;
     private long price;
     @Column(length = 5000, name = "products_as_json")
+    @Basic(fetch = FetchType.LAZY)
     private String productsAsJSON;
 
     public Sale() {
