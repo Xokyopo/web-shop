@@ -69,12 +69,15 @@ public class CartController {
         this.saleService.sale(this.cart);
         Map<Product, Integer> buys = this.cart;
         this.cart = new HashMap<>();
-        long fullPrice = buys.entrySet().stream()
+        this.fullPrice = 0;
+        this.productCount = 0;
+
+        long chequeFullPrice = buys.entrySet().stream()
                 .mapToLong(entry -> entry.getKey().getPrice() * entry.getValue())
                 .sum();
 
         model.addAttribute("byes", buys.entrySet());
-        model.addAttribute("fullPrice", fullPrice);
+        model.addAttribute("fullPrice", chequeFullPrice);
         // redirect to buysList
         return "cheque";
     }
