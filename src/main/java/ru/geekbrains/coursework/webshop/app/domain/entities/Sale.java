@@ -1,6 +1,10 @@
 package ru.geekbrains.coursework.webshop.app.domain.entities;
 
 import javax.persistence.*;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 
 @Entity(name = "sales")
 public class Sale {
@@ -34,6 +38,12 @@ public class Sale {
 
     public long getDateTime() {
         return dateTime;
+    }
+
+    public String getDateTimeAsString() {
+        return LocalDateTime
+                .ofInstant(Instant.ofEpochMilli(dateTime), ZoneOffset.systemDefault())
+                .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
 
     public void setDateTime(long dateTime) {
