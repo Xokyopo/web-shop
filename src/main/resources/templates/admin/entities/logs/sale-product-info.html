@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="admin/templates/fragments :: head(title='template')">
+</head>
+
+<body>
+<div class="d-flex overflow-hidden vh-100 flex-column">
+    <header class="top-menu" th:replace="admin/templates/fragments :: header">
+    </header>
+
+    <main class="d-flex h-100">
+
+        <div class="left-menu bg-success" th:replace="admin/templates/fragments :: leftMenu">
+        </div>
+
+        <div class="overflow-auto p-3 flex-grow-1">
+            <div class="p-3">
+
+                <!-- content area start -->
+
+                <div th:object="${product}" th:with="rootDir='/admin/entities/logs/sale'">
+
+                    <div class="row justify-content-center">
+                        <a class="btn btn-primary" style="margin-top: 50px" th:href="@{${rootDir}  + '/showAll'}"
+                           type="button">Cancel</a>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id">id:</label>
+                        <input class="form-control" disabled id="id" placeholder="enter name" th:value="*{id}"
+                               type="text"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="name">name:</label>
+                        <input class="form-control" disabled id="name" placeholder="enter name" th:value="*{name}"
+                               type="text"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="brand">brand:</label>
+                        <input class="form-control" disabled id="brand" placeholder="enter name"
+                               th:value="*{brand.name}" type="text"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="price">price:</label>
+                        <input class="form-control" disabled id="price" placeholder="enter name" th:value="*{price}"
+                               type="text"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Categories:</label>
+                        <div class="w-100 d-flex flex-row flex-wrap" id="categories">
+                            <input class="form-control w-auto m-1" disabled th:each="category : *{categories}"
+                                   th:value="${category.name}" type="text"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Images URLs:</label>
+                        <div class="w-100 d-flex flex-row flex-wrap">
+                            <img alt="..." class="img-thumbnail m-2" src="#" style="width: 20rem;"
+                                 th:each="imageUrl : *{imagesUrls}" th:src="${imageUrl}">
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- content area end-->
+
+            </div>
+        </div>
+    </main>
+
+</div>
+
+
+<footer th:replace="admin/templates/fragments ::footer">
+</footer>
+</body>
+
+</html>

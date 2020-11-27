@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="admin/templates/fragments :: head(title='template')">
+</head>
+
+<body>
+<div class="d-flex overflow-hidden vh-100 flex-column">
+    <header class="top-menu" th:replace="admin/templates/fragments :: header">
+    </header>
+
+    <main class="d-flex h-100">
+
+        <div class="left-menu bg-success" th:replace="admin/templates/fragments :: leftMenu">
+        </div>
+
+        <div class="overflow-auto p-3 flex-grow-1">
+            <div class="p-3">
+
+                <!-- content area start -->
+
+                <div th:with="rootDir='/admin/entities/logs/sale'">
+                    <table class="table table-striped" id="myTable">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">id</th>
+                            <th scope="col">date & time</th>
+                            <th scope="col">count</th>
+                            <th scope="col">price</th>
+                            <th scope="col">full price</th>
+                            <th scope="col">product</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="sale : ${sales}" th:with="entityID=${sale.id}">
+                            <th scope="row" th:text="${sale.id}">id</th>
+                            <td th:text="${sale.getDateTimeAsString()}">date & time</td>
+                            <td th:text="${sale.count}">count</td>
+                            <td th:text="${sale.price}">price</td>
+                            <td th:text="${sale.count * sale.price}">full price</td>
+
+                            <td>
+                                <a class="btn btn-warning mr-2" th:href="@{${rootDir} + '/show/{id}'(id = ${entityID})}"
+                                   type="button">show</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- content area end-->
+
+            </div>
+        </div>
+    </main>
+
+</div>
+
+
+<footer th:replace="admin/templates/fragments ::footer">
+</footer>
+</body>
+
+</html>
