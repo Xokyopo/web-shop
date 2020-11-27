@@ -1,11 +1,14 @@
 package ru.geekbrains.coursework.webshop.app.domain.entities;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import ru.geekbrains.coursework.webshop.app.domain.entities.json.ProductDeserializer;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity(name = "products")
+@JsonDeserialize(using = ProductDeserializer.class)
 public class Product extends AEntity {
     @ManyToMany(fetch = FetchType.EAGER)
     @JsonManagedReference
