@@ -39,7 +39,7 @@ public class SaleService extends AService<Sale, SaleRepository> {
 
     public Optional<Product> getProductBySaleId(Long id) {
         return convertJsonToProduct(
-                this.getById(id).orElseThrow(() -> new IllegalArgumentException("Not have sale with id [" + id + "]")
+                this.getById(id).orElseThrow(() -> new IllegalArgumentException("Not have sale rec with id [" + id + "]")
                 ).getProductsAsJSON());
     }
 
@@ -48,6 +48,8 @@ public class SaleService extends AService<Sale, SaleRepository> {
             Product result = getObjectMapper().readValue(json, Product.class);
             return Optional.of(result);
         } catch (JsonProcessingException e) {
+            // need more time to decide
+            e.printStackTrace();
             return Optional.empty();
         }
     }
