@@ -69,6 +69,7 @@
                             <span>Home</span>
                         </a>
                     </li>
+                    <!--         entities menu section start           -->
                     <li class="nav-item dropdown overflow-hidden">
                         <input class="drop-check d-none" id="drop-check" type="checkbox"/>
                         <label class="nav-link btn btn-success dropdown-toggle m-0 px-2 py-1 text-left"
@@ -120,6 +121,27 @@
                             </li>
                         </ul>
                     </li>
+                    <!--         entities menu section end           -->
+
+                    <!--         logs menu section start           -->
+                    <li class="nav-item dropdown overflow-hidden">
+                        <input class="drop-check d-none" id="drop-check-2" type="checkbox"/>
+                        <label class="nav-link btn btn-success dropdown-toggle m-0 px-2 py-1 text-left"
+                               for="drop-check-2">
+                            <i aria-hidden="true" class="fa fa-database"></i>
+                            <span>Logs</span>
+                        </label>
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link btn pl-3 pr-1 py-1 btn-success text-left" href="#"
+                                   th:href="@{/admin/entities/logs/sale/showAll}">
+                                    <i aria-hidden="true" class="fa fa-cc"></i>Sale
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <!--         log menu section end           -->
                 </ul>
             </nav>
         </div>
