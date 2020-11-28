@@ -73,4 +73,15 @@ public class Sale {
     public void setProductsAsJSON(String productsAsJSON) {
         this.productsAsJSON = productsAsJSON;
     }
+
+    @Override
+    public String toString() {
+        return "Sale{" +
+                "id=" + id +
+                ", dateTime=" + dateTime +
+                ", count=" + count +
+                ", price=" + price +
+                ", productsAsJSON='" + productsAsJSON + '\'' +
+                '}';
+    }
 }
