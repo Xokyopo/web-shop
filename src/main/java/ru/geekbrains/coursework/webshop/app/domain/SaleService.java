@@ -16,13 +16,24 @@ import java.util.stream.Collectors;
 public class SaleService extends AService<Sale, SaleRepository> {
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
-    public static ObjectMapper getObjectMapper() {
+    protected static ObjectMapper getObjectMapper() {
         return OBJECT_MAPPER;
     }
 
     public void sale(Map<Product, Integer> cart) {
-        List<Sale> sales = cart.entrySet().stream().map(this::createSale).collect(Collectors.toList());
-        this.getRepository().saveAll(sales);
+        this.requireNotNull(cart, "Cart can't be null");
+        if (!cart.isEmpty()) {
+            List<Sale> sales = cart.entrySet().stream().map(this::createSale).collect(Collectors.toList());
+            this.getRepository().saveAll(sales);
+        }
+    }
+
+    public Optional<Product> getProductBySaleId(Long id) {
+        this.requireNotNull(id, "Id can't be null");
+
+        return convertJsonToProduct(
+                this.getById(id).orElseThrow(() -> new IllegalArgumentException("Not have sale rec with id [" + id + "]")
+                ).getProductsAsJSON());
     }
 
     private Sale createSale(Map.Entry<Product, Integer> cartItem) {
@@ -33,12 +44,6 @@ public class SaleService extends AService<Sale, SaleRepository> {
                 cartItem.getKey().getPrice(),
                 this.convertProductToJson(cartItem.getKey())
         );
-    }
-
-    public Optional<Product> getProductBySaleId(Long id) {
-        return convertJsonToProduct(
-                this.getById(id).orElseThrow(() -> new IllegalArgumentException("Not have sale rec with id [" + id + "]")
-                ).getProductsAsJSON());
     }
 
     private Optional<Product> convertJsonToProduct(String json) {
