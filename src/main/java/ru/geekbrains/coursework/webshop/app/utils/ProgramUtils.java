@@ -20,13 +20,14 @@ public class ProgramUtils {
                 text.endsWith("/") ? text.length() - 1 : text.length()));
     }
 
-    public String convertToHumanFileLength(float fileLength) {
-        float baseLength = 1024;
+    public String convertToHumanFileLength(long fileLength) {
+        double currentFileLength = fileLength;
+        long baseLength = 1024;
         String[] prefixes = new String[]{"B", "KB", "MB", "GB", "TB", "PB"};
         int count;
-        for (count = 0; fileLength >= baseLength; count++) {
-            fileLength = fileLength / baseLength;
+        for (count = 0; currentFileLength >= baseLength || count >= 5; count++) {
+            currentFileLength = currentFileLength / baseLength;
         }
-        return String.format("%.2f %s", fileLength, prefixes[count]);
+        return String.format("%.2f %s", currentFileLength, prefixes[count]);
     }
 }
