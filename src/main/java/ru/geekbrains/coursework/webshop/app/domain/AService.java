@@ -25,25 +25,25 @@ public abstract class AService<E, R extends ARepository<E>> {
     }
 
     public Page<E> getAll(Pageable pageable) {
-        this.requireNotNull(pageable, "pageable cant be NULL");
+        this.requireNotNull(pageable, "Pageable Can't be NULL");
 
         return this.repository.findAll(pageable);
     }
 
     public Optional<E> getById(Long id) {
-        this.requireNotNull(id, "EntityID Cant be NULL");
+        this.requireNotNull(id, "EntityID Can't be NULL");
 
         return (id == 0) ? Optional.of(this.getEmptyEntity()) : this.repository.findById(id);
     }
 
     public void save(E entity) {
-        this.requireNotNull(entity, "Entity Cant be NULL");
+        this.requireNotNull(entity, "Entity Can't be NULL");
 
         this.repository.save(entity);
     }
 
     public void delete(Long id) {
-        this.requireNotNull(id, "Entity Cant be NULL");
+        this.requireNotNull(id, "Entity id Can't be NULL");
 
         this.repository.deleteById(id);
     }
