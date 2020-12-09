@@ -27,7 +27,7 @@ public class ShopController {
 
     @GetMapping
     public String show(Model model, @RequestParam("page") Optional<Integer> page) {
-        model.addAttribute("productsPages", this.productService.getAll(PageRequest.of(page.orElse(1) - 1, PRODUCT_LIMIT_ON_PAGE)));
+        model.addAttribute("productsPages", this.productService.getPage(PageRequest.of(page.orElse(1) - 1, PRODUCT_LIMIT_ON_PAGE)));
         return "shop";
     }
 
@@ -35,5 +35,12 @@ public class ShopController {
     public String add(@RequestParam("id") long id) {
         this.cartController.add(id, 1);
         return "redirect:/shop";
+    }
+
+    // test method who return shop fragment [it's work ^) ahahahaah]
+    @GetMapping("/frag")
+    public String showFrag(Model model, @RequestParam("page") Optional<Integer> page) {
+        model.addAttribute("productsPages", this.productService.getPage(PageRequest.of(page.orElse(1) - 1, PRODUCT_LIMIT_ON_PAGE)));
+        return "shop :: test";
     }
 }

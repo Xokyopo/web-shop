@@ -24,7 +24,7 @@ public abstract class AService<E, R extends ARepository<E>> {
         return this.repository.findAll();
     }
 
-    public Page<E> getAll(Pageable pageable) {
+    public Page<E> getPage(Pageable pageable) {
         this.requireNotNull(pageable, "Pageable Can't be NULL");
 
         return this.repository.findAll(pageable);
