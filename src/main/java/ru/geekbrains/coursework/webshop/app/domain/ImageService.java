@@ -17,10 +17,11 @@ public class ImageService extends AService<Image, ImageRepository> {
 
         if (entity.getId() == 0 && !multipartFiles.isEmpty()) {
             this.getRepository().saveAll(multipartFiles.stream().map(Image::new).collect(Collectors.toList()));
-            return;
         } else {
-            multipartFiles.stream().findFirst().ifPresent(entity::setAll);
+            multipartFiles.stream().findFirst().ifPresent(multipartFile -> {
+                entity.setAll(multipartFile);
+                this.getRepository().save(entity);
+            });
         }
-        this.getRepository().save(entity);
     }
 }
