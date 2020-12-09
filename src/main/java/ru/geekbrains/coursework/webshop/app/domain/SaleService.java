@@ -20,11 +20,9 @@ public class SaleService extends AService<Sale, SaleRepository> {
         return OBJECT_MAPPER;
     }
 
-    public List<Sale> sale(Map<Product, Integer> cart) {
+    public void sale(Map<Product, Integer> cart) {
         List<Sale> sales = cart.entrySet().stream().map(this::createSale).collect(Collectors.toList());
         this.getRepository().saveAll(sales);
-        // need return human readable list
-        return sales;
     }
 
     private Sale createSale(Map.Entry<Product, Integer> cartItem) {
