@@ -35,10 +35,10 @@ public class SaleServiceTest {
     }
 
     @Test
-    public void getProductBySaleId_ShouldThrowException_WhenEntityNotFound() {
+    public void getProductBySaleId_ShouldThrowException_WhenEntityWithSetsIdNotFound() {
         Class<IllegalArgumentException> expected = IllegalArgumentException.class;
         Mockito.when(this.saleRepository.findById(Mockito.anyLong())).thenReturn(Optional.empty());
-        Executable actual = () -> this.saleService.getProductBySaleId(Mockito.anyLong());
+        Executable actual = () -> this.saleService.getProductBySaleId(1L);
         assertThrows(expected, actual);
     }
 
@@ -60,7 +60,7 @@ public class SaleServiceTest {
 
     @Test
     public void save_ShouldReturnTrue_WhenInputNotEmptyCart() {
-        Exception exception = new CallCurrentMethodException("save_ShouldNotThrowException_WhenInputNotEmptyCart");
+        Exception exception = new CallCurrentMethodException("save_ShouldReturnTrue_WhenInputNotEmptyCart");
         Mockito.when(this.saleRepository.saveAll(Mockito.anyList())).thenThrow(exception);
 
         Class<CallCurrentMethodException> expected = CallCurrentMethodException.class;
