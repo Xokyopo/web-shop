@@ -25,7 +25,7 @@ public class ProgramUtils {
         long baseLength = 1024;
         String[] prefixes = new String[]{"B", "KB", "MB", "GB", "TB", "PB"};
         int count;
-        for (count = 0; currentFileLength >= baseLength || count >= 5; count++) {
+        for (count = 0; Math.abs(currentFileLength) >= baseLength && count < 5; count++) {
             currentFileLength = currentFileLength / baseLength;
         }
         return String.format("%.2f %s", currentFileLength, prefixes[count]);
