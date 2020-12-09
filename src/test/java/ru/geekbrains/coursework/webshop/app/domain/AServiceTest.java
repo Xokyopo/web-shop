@@ -9,10 +9,6 @@ import org.springframework.data.domain.Pageable;
 import ru.geekbrains.coursework.webshop.app.CallCurrentMethodException;
 import ru.geekbrains.coursework.webshop.app.dao.ARepository;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -110,10 +106,7 @@ public class AServiceTest {
     private static class TestEntityService extends AService<TestEntity, TestEntityRepository> {
     }
 
-    @Entity
     private static class TestEntity {
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
         private long id;
         private String name;
 
