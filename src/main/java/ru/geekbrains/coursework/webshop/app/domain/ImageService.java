@@ -13,6 +13,7 @@ public class ImageService extends AService<Image, ImageRepository> {
 
     public void save(Image entity, List<MultipartFile> multipartFiles) {
         this.requireNotNull(entity, "Entity Cant be NULL");
+        this.requireNotNull(multipartFiles, "MultipartFiles Cant be NULL");
 
         if (entity.getId() == 0 && !multipartFiles.isEmpty()) {
             this.getRepository().saveAll(multipartFiles.stream().map(Image::new).collect(Collectors.toList()));
