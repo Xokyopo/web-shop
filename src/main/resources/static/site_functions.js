@@ -80,6 +80,8 @@ function thAjax(methodType, targetUrl, sendingData, doneFunction) {
     if (sendingData != null) {
         body[data] = sendingData;
     }
+
+    console.log("thAjax with body " + body);
     $.ajax(body).done((msg) => doneFunction(msg));
 }
 
