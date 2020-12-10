@@ -6,12 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class IndexController {
-    @GetMapping
-    public String getMainPage() {
-        return "index";
-    }
-
+public class SecurityController {
     @GetMapping("/login")
     public String getLoginPage() {
         return "login";
