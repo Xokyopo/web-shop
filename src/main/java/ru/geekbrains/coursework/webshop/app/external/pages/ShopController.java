@@ -42,7 +42,7 @@ public class ShopController {
         return "redirect:/shop";
     }
 
-    @GetMapping("product/{id}")
+    @GetMapping("/product/{id}")
     public String showSingleProduct(Model model, @PathVariable("id") long id) {
         if (id == 0) throw new IllegalArgumentException(
                 "id in {public String showSingleProduct(Model model, @PathVariable(\"id\") long id)} can be 0");
