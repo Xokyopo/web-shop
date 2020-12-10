@@ -31,13 +31,13 @@ public class ShopController {
     }
 
     @GetMapping("/shop")
-    public String show(Model model, @RequestParam("page") Optional<Integer> page) {
+    public String showShop(Model model, @RequestParam("page") Optional<Integer> page) {
         model.addAttribute("productsPages", this.productService.getPage(PageRequest.of(page.orElse(1) - 1, PRODUCT_LIMIT_ON_PAGE)));
         return "shop";
     }
 
     @PostMapping("/shop/addToCart")
-    public String add(@RequestParam("id") long id) {
+    public String addToCartForShopPage(@RequestParam("id") long id) {
         this.cartController.add(id, 1);
         return "redirect:/shop";
     }
@@ -53,7 +53,7 @@ public class ShopController {
     }
 
     @PostMapping("/product/addToCart")
-    public String add(@RequestParam("id") long id, @RequestParam(value = "count", defaultValue = "1") int count) {
+    public String addToCartForProductPage(@RequestParam("id") long id, @RequestParam(value = "count", defaultValue = "1") int count) {
         this.cartController.add(id, count);
         return "redirect:/product/" + id;
     }
