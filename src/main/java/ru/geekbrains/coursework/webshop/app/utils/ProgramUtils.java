@@ -7,6 +7,8 @@ import java.util.Optional;
 public class ProgramUtils {
 
     public static Optional<String> getRequestMappingValue(Object object) {
+        if (object == null) throw new IllegalArgumentException("object can't be null");
+
         String result = "";
         if (object.getClass().isAnnotationPresent(RequestMapping.class)) {
             result = object.getClass().getAnnotation(RequestMapping.class).value()[0];
@@ -15,9 +17,10 @@ public class ProgramUtils {
     }
 
     public static String removeSlashOnStartAndEnd(String text) {
-        return (text.substring(
-                text.startsWith("/") ? 1 : 0,
-                text.endsWith("/") ? text.length() - 1 : text.length()));
+        if (text == null) throw new IllegalArgumentException("text can't be null");
+
+        String result = text.substring(text.startsWith("/") ? 1 : 0);
+        return (result.substring(0, result.endsWith("/") ? result.length() - 1 : result.length()));
     }
 
     public String convertToHumanFileLength(long fileLength) {
