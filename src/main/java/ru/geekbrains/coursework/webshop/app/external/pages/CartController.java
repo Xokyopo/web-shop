@@ -83,8 +83,8 @@ public class CartController {
     }
 
     @GetMapping(value = "/count")
-    public @ResponseBody
-    CartStatus getStatus() {
+    @ResponseBody
+    public CartStatus getStatus() {
         return this.createCartStatus();
     }
 
