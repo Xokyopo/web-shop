@@ -42,9 +42,7 @@ public class CartController {
     public String del(@PathVariable("id") long id) {
         this.cart.entrySet().removeIf(productIntegerEntry -> {
             if (productIntegerEntry.getKey().getId() == id) {
-
-                this.productCount -= productIntegerEntry.getValue();
-                this.fullPrice -= productIntegerEntry.getKey().getPrice() * productIntegerEntry.getValue();
+                this.updateCartStatus(productIntegerEntry.getKey().getPrice(), -productIntegerEntry.getValue());
                 return true;
             }
             return false;
@@ -57,9 +55,7 @@ public class CartController {
         this.productService.getById(id)
                 .ifPresent(product -> {
                     cart.put(product, cart.getOrDefault(product, 0) + count);
-
-                    this.fullPrice += product.getPrice() * count;
-                    this.productCount += count;
+                    this.updateCartStatus(product.getPrice(), count);
                 });
         return "redirect:/cart";
     }
@@ -86,6 +82,11 @@ public class CartController {
     @ResponseBody
     public CartStatus getStatus() {
         return this.createCartStatus();
+    }
+
+    private void updateCartStatus(long price, long count) {
+        this.productCount += count;
+        this.fullPrice += price * count;
     }
 
     private CartStatus createCartStatus() {
