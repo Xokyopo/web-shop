@@ -105,12 +105,4 @@ public class ShopControllerTest {
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(model().attributeExists("relatedProducts"));
     }
-
-//    @Test
-//    public void showSingleProduct_ShouldThrow_WhenSendGetRequestToProductEndpointWithZeroPathVariable() throws Exception {
-//        Mockito.when(this.productService.getById(Mockito.anyLong())).thenReturn(Optional.of(new Product()));
-//        Mockito.when(this.productService.getAll()).thenReturn(List.of(new Product()));
-//        this.mockMvc.perform(get("/product/{id}", 0))
-//                .andExpect(status().is4xxClientError());
-//    }
 }
