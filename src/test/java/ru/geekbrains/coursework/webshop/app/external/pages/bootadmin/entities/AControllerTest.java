@@ -63,6 +63,7 @@ public class AControllerTest {
     @Test
     public void show_ShouldReturnEditFormView_WhenSendGetToEndpoint() throws Exception {
         Mockito.when(this.testService.getById(Mockito.anyLong())).thenReturn(Optional.of(new TestEntity()));
+
         this.mockMvc.perform(get("/test/show/{id}", Mockito.anyLong()))
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(view().name("test-edit-form"));
@@ -71,20 +72,21 @@ public class AControllerTest {
     @Test
     public void show_ShouldReturnTestEntityAttribute_WhenSendGetToEndpoint() throws Exception {
         Mockito.when(this.testService.getById(Mockito.anyLong())).thenReturn(Optional.of(new TestEntity()));
+
         this.mockMvc.perform(get("/test/show/{id}", Mockito.anyLong()))
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(model().attributeExists(TestEntity.class.getSimpleName().toLowerCase()));
     }
 
     @Test
-    public void delete_ShouldReturnRedirectToShowAll_WhenSendGetToEndpoint() throws Exception {
+    public void delete_ShouldReturnRedirectToShowAll_WhenSendPostToEndpoint() throws Exception {
         this.mockMvc.perform(post("/test/del/{id}", Mockito.anyLong()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/test/showAll"));
     }
 
     @Test
-    public void save_ShouldReturnRedirectToShowAll_WhenSendGetToEndpoint() throws Exception {
+    public void save_ShouldReturnRedirectToShowAll_WhenSendPostFormToEndpoint() throws Exception {
 
         this.mockMvc.perform(post("/test/save")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
