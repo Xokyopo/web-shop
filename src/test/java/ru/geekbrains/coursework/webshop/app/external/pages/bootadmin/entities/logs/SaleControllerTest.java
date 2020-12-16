@@ -19,17 +19,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class SaleControllerTest {
     private final TestUtils testUtils = new TestUtils();
     private SaleService saleService;
-    private SaleController saleController;
     private MockMvc mockMvc;
 
 
     @BeforeEach
     public void init() {
         this.saleService = Mockito.mock(SaleService.class);
-        this.saleController = new SaleController(this.saleService);
+        SaleController saleController = new SaleController(this.saleService);
 
         this.mockMvc = MockMvcBuilders
-                .standaloneSetup(this.saleController)
+                .standaloneSetup(saleController)
                 .setViewResolvers(this.testUtils.createThymeleafViewResolver())
                 .build();
     }
