@@ -54,7 +54,7 @@ public class AControllerTest {
     }
 
     @Test
-    public void showAll_ShouldReturnTestEntityAttribute_WhenSendGetToEndpoint() throws Exception {
+    public void showAll_ShouldExistTestEntityAttribute_WhenSendGetToEndpoint() throws Exception {
         this.mockMvc.perform(get("/test/showAll"))
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(model().attributeExists(TestEntity.class.getSimpleName().toLowerCase() + "s"));
@@ -70,7 +70,7 @@ public class AControllerTest {
     }
 
     @Test
-    public void show_ShouldReturnTestEntityAttribute_WhenSendGetToEndpoint() throws Exception {
+    public void show_ShouldExistTestEntityAttribute_WhenSendGetToEndpoint() throws Exception {
         Mockito.when(this.testService.getById(Mockito.anyLong())).thenReturn(Optional.of(new TestEntity()));
 
         this.mockMvc.perform(get("/test/show/{id}", Mockito.anyLong()))

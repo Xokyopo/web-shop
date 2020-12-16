@@ -39,7 +39,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void show_ShouldReturnAllRolesAttribute_WhenSendGetToEndpoint() throws Exception {
+    public void show_ShouldExistAllRolesAttribute_WhenSendGetToEndpoint() throws Exception {
         Mockito.when(this.userService.getById(Mockito.anyLong())).thenReturn(Optional.of(new User()));
         Mockito.when(this.roleService.getAll()).thenReturn(List.of(new Role()));
 

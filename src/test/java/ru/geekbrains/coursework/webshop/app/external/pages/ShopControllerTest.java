@@ -48,7 +48,7 @@ public class ShopControllerTest {
     }
 
     @Test
-    public void showShop_ShouldReturnModelWithPagesAttribute_WhenSendGetRequestToShopEndpoint() throws Exception {
+    public void showShop_ShouldExistProductsPagesAttribute_WhenSendGetRequestToShopEndpoint() throws Exception {
         Mockito.when(this.productService.getPage(Mockito.any())).thenReturn(this.testUtils.getPageOf(new Product()));
         this.mockMvc.perform(get("/shop"))
                 .andExpect(model().attributeExists("productsPages"));
@@ -89,7 +89,7 @@ public class ShopControllerTest {
     }
 
     @Test
-    public void showSingleProduct_ShouldReturnPageWithProductAttribute_WhenSendGetRequestToProductEndpoint() throws Exception {
+    public void showSingleProduct_ShouldExistProductAttribute_WhenSendGetRequestToProductEndpoint() throws Exception {
         Mockito.when(this.productService.getById(Mockito.anyLong())).thenReturn(Optional.of(new Product()));
         Mockito.when(this.productService.getAll()).thenReturn(List.of(new Product()));
         this.mockMvc.perform(get("/product/{id}", 1))
@@ -98,7 +98,7 @@ public class ShopControllerTest {
     }
 
     @Test
-    public void showSingleProduct_ShouldReturnPageWithRelatedProductsAttribute_WhenSendGetRequestToProductEndpoint() throws Exception {
+    public void showSingleProduct_ShouldExistRelatedProductsAttribute_WhenSendGetRequestToProductEndpoint() throws Exception {
         Mockito.when(this.productService.getById(Mockito.anyLong())).thenReturn(Optional.of(new Product()));
         Mockito.when(this.productService.getAll()).thenReturn(List.of(new Product()));
         this.mockMvc.perform(get("/product/{id}", 1))
