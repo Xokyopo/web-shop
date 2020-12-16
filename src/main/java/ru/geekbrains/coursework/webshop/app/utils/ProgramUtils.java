@@ -7,6 +7,8 @@ import java.util.Optional;
 public class ProgramUtils {
 
     public static Optional<String> getRequestMappingValue(Object object) {
+        if (object == null) throw new IllegalArgumentException("object can't be null");
+
         String result = "";
         if (object.getClass().isAnnotationPresent(RequestMapping.class)) {
             result = object.getClass().getAnnotation(RequestMapping.class).value()[0];
@@ -15,36 +17,20 @@ public class ProgramUtils {
     }
 
     public static String removeSlashOnStartAndEnd(String text) {
-        return (text.substring(
-                text.startsWith("/") ? 1 : 0,
-                text.endsWith("/") ? text.length() - 1 : text.length()));
+        if (text == null) throw new IllegalArgumentException("text can't be null");
+
+        String result = text.substring(text.startsWith("/") ? 1 : 0);
+        return (result.substring(0, result.endsWith("/") ? result.length() - 1 : result.length()));
     }
 
-    public String convertToHumanFileLength(float fileLength) {
-        float baseLength = 1024;
+    public String convertToHumanFileLength(long fileLength) {
+        double currentFileLength = fileLength;
+        long baseLength = 1024;
         String[] prefixes = new String[]{"B", "KB", "MB", "GB", "TB", "PB"};
         int count;
-        for (count = 0; fileLength >= baseLength; count++) {
-            fileLength = fileLength / baseLength;
+        for (count = 0; Math.abs(currentFileLength) >= baseLength && count < 5; count++) {
+            currentFileLength = currentFileLength / baseLength;
         }
-        return String.format("%.2f %s", fileLength, prefixes[count]);
-    }
-
-    public static <T> T exceptionReplacer(ExReturnedPod<T> function, RuntimeException replacedException) {
-        try {
-            return function.run();
-        } catch (Exception e) {
-            replacedException.addSuppressed(e);
-            throw replacedException;
-        }
-    }
-
-    public static void exceptionReplacer(ExCallbackPod function, RuntimeException replacedException) {
-        try {
-            function.run();
-        } catch (Exception e) {
-            replacedException.addSuppressed(e);
-            throw replacedException;
-        }
+        return String.format("%.2f %s", currentFileLength, prefixes[count]);
     }
 }

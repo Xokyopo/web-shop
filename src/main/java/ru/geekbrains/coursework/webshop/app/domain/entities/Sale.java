@@ -1,6 +1,10 @@
 package ru.geekbrains.coursework.webshop.app.domain.entities;
 
 import javax.persistence.*;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 
 @Entity(name = "sales")
 public class Sale {
@@ -11,6 +15,7 @@ public class Sale {
     private long count;
     private long price;
     @Column(length = 5000, name = "products_as_json")
+    @Basic(fetch = FetchType.LAZY)
     private String productsAsJSON;
 
     public Sale() {
@@ -33,6 +38,12 @@ public class Sale {
 
     public long getDateTime() {
         return dateTime;
+    }
+
+    public String getDateTimeAsString() {
+        return LocalDateTime
+                .ofInstant(Instant.ofEpochMilli(dateTime), ZoneOffset.systemDefault())
+                .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
 
     public void setDateTime(long dateTime) {
@@ -61,5 +72,16 @@ public class Sale {
 
     public void setProductsAsJSON(String productsAsJSON) {
         this.productsAsJSON = productsAsJSON;
+    }
+
+    @Override
+    public String toString() {
+        return "Sale{" +
+                "id=" + id +
+                ", dateTime=" + dateTime +
+                ", count=" + count +
+                ", price=" + price +
+                ", productsAsJSON='" + productsAsJSON + '\'' +
+                '}';
     }
 }

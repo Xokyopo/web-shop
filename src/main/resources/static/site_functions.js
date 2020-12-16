@@ -38,11 +38,16 @@ function initCalculate() {
 
         plus.click(() => btn_click((val) => val + 1));
         minus.click(() => btn_click((val) => val - 1));
+        count.on("change, oninput, input", () => calculateResult());
+
+        //для проверки
+        count.change(() => console.log("сохранило значение = " + count.val()));
+
 
         function btn_click(calc) {
             count.val(calc(parseInt(count.val())));
+            count.trigger("change");
             if (parseInt(count.val()) < 1) count.val(1);
-            calculateResult();
         }
 
         function calculateResult() {
@@ -67,6 +72,17 @@ function sum(elementsScope) {
         result += parseFloat($(element).text());
     });
     return result;
+}
+
+
+function thAjax(methodType, targetUrl, sendingData, doneFunction) {
+    let body = {method: methodType, url: targetUrl};
+    if (sendingData != null) {
+        body[data] = sendingData;
+    }
+
+    console.log("thAjax with body " + body);
+    $.ajax(body).done((msg) => doneFunction(msg));
 }
 
 function getCurrentDate() {
