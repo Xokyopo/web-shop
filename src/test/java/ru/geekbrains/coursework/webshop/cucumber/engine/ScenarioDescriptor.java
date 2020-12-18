@@ -46,7 +46,8 @@ public class ScenarioDescriptor {
 
         @Если("доступен элемент {string}")
         public void haveElement(String htmlElement) {
-            WebElement chatButton = this.waitElement(getElementBy(htmlElement));
+            WebElement element = this.waitElement(getElementBy(htmlElement));
+            Assertions.assertTrue(element.isEnabled());
         }
 
         @То("все нормально")
@@ -55,20 +56,11 @@ public class ScenarioDescriptor {
         }
 
         @Затем("нажмем кнопку {string}")
+        @Тогда("нажмем на ссылку {string}")
         public void clickButton(String buttonName) {
 //            not work!!!
 //            WebElement element = this.waitElement(By.linkText(buttonName));
             WebElement element = this.waitElement(this.getElementBy(buttonName));
-
-            System.out.println("buttonName = " + buttonName);
-            System.out.println("*".repeat(40));
-            System.out.println(element);
-            System.out.println("*".repeat(40));
-            System.out.println("tagName = " + element.getTagName());
-            System.out.println(".isDisplayed = " + element.isDisplayed());
-
-            System.out.println("*".repeat(40));
-
             element.click();
         }
 
@@ -76,6 +68,17 @@ public class ScenarioDescriptor {
         public void isCurrentPage(String actual) {
             String expected = this.webDriver.getCurrentUrl();
             Assertions.assertEquals(expected, actual);
+        }
+
+        @Затем("вводим {string} в поле {string}")
+        public void inputTextTo(String text, String htmlElement) {
+            WebElement element = this.waitElement(this.getElementBy(htmlElement));
+            element.sendKeys(text);
+        }
+
+        @И("ждем {string} секунд")
+        public void sleep(String waitTime) throws InterruptedException {
+            Thread.sleep(Long.parseLong(waitTime) * 1000);
         }
 
         private WebElement waitElement(By waitingElement) {
