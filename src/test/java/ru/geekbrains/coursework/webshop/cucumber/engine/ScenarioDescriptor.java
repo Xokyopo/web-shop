@@ -12,6 +12,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
@@ -79,6 +80,17 @@ public class ScenarioDescriptor {
         @И("ждем {string} секунд")
         public void sleep(String waitTime) throws InterruptedException {
             Thread.sleep(Long.parseLong(waitTime) * 1000);
+        }
+
+        @Тогда("наведем курсор мыши на {string}")
+        public void mouseHoverTo(String htmlElement) {
+            WebElement element = this.waitElement(this.getElementBy(htmlElement));
+            this.moveToElement(element);
+        }
+
+        private void moveToElement(WebElement element) {
+            Actions action = new Actions(this.webDriver);
+            action.moveToElement(element).build().perform();
         }
 
         private WebElement waitElement(By waitingElement) {
