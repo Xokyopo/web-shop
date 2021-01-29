@@ -177,7 +177,7 @@ public class CartControllerTest {
     }
 
     @Test
-    public void buy_ShouldReturnByesAttribute_WhenSendPostToEndpoint() throws Exception {
+    public void buy_ShouldExistByesAttribute_WhenSendPostToEndpoint() throws Exception {
         Mockito.doNothing().when(this.saleService).sale(Mockito.anyMap());
 
         this.mockMvc.perform(post("/cart/buy"))
@@ -186,7 +186,7 @@ public class CartControllerTest {
     }
 
     @Test
-    public void buy_ShouldReturnFullPriceAttribute_WhenSendPostToEndpoint() throws Exception {
+    public void buy_ShouldExistFullPriceAttribute_WhenSendPostToEndpoint() throws Exception {
         Mockito.doNothing().when(this.saleService).sale(Mockito.anyMap());
 
         this.mockMvc.perform(post("/cart/buy"))
